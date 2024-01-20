@@ -6,7 +6,7 @@
 #include <string>
 
 /*
-01. Stack
+ADT
 A stack, S of type T is a sequence of items of type T on which the following operations are defined:
 LIFO: Last put into the stack is the first to be popped off
 
@@ -17,9 +17,9 @@ push() a new item of type T onto the top of the stack, S
 If S in not empty, pop() an item from the top of the stack, S.
 
 References : https://www.cse.unr.edu/~sushil/class/cs202/notes/stacks/stacks.html
-
 */
-// Stack implementation on abstract data class using array buffers, C++
+
+// Stack implementation on data class 
 Stack::Stack(int size = 1)
 {
     size = boundCapacity(size);
@@ -40,6 +40,7 @@ Stack::~Stack()
 {
     delete[] array;
 }
+
 // Limit size of stack between 1 and absolute_max
 int Stack::boundCapacity(int c)
 {
@@ -54,6 +55,9 @@ int Stack::boundCapacity(int c)
     return c;
 }
 
+int Stack::size(){
+    return head;
+}
 
 bool Stack::isEmpty()
 {
@@ -63,6 +67,8 @@ bool Stack::isFull()
 {
     return head == capacity;
 }
+
+// Pushes onto stack, capacity is at maximum.
 void Stack::stack_push(Data d)
 {
     if (head == capacity)
@@ -86,6 +92,7 @@ void Stack::stack_push(Data d)
         *(array + head) = d;
     }
 }
+//Returns popped value, error if stack empty.
 Data Stack::stack_pop()
 {
     if (head < 0)
@@ -100,18 +107,28 @@ Data Stack::stack_pop()
         return val;
     }
 }
+Data Stack::stack_peek(){
+    if(head < 0){
+        throw std::invalid_argument("Nothing to be peeked at, empty.");
+    }
+    else {
+        return *(array + head);
+    }
+}
+
 void Stack::stack_print()
 {
     std::ostringstream os;
     for (int i = 0; i < head; i++)
     {
         os << *(array + i)->print() << "->";
+        std::cout << *(array+i)->print() << std::endl;
     }
     if(head >= 0){
         os << *(array+head)->print();
     }
     std::string s = os.str();
-    std::cout << s  << std::endl;
+    std::cout << s << std::endl;
 }
 
 // head is index of top value, array is working stack, capacity is limit of stack, absolute_max = final limit

@@ -42,26 +42,20 @@ float Data::getConstant()
 {
     return description.constant;
 }
-const char *Data::getName()
+const char * Data::getName()
 {
-    return description.name;
+    return description.name + '\0';
 }
-// TODO: Fix this messy function... 
+
 // Return ch array of id, constant, and name
 const char * Data::print()
 {
     std::string id = std::to_string(getID());
-   // std::string c = std::to_string(getConstant());
-   // std::string separator = "-";  // Corrected the spelling of "separator"
-  //  std::string name(getName());
-  //  size_t totLen = id.length() + c.length() + name.length();
-  //  char *result = new char[totLen + 1];
+    std::string c = std::to_string(getConstant());
+    std::string name = getName();
+    
+    std::string result = id + "-" + c + "-" + name;
 
-   // strcpy(result, id.c_str());
-   // strcat(result, separator.c_str());
-   // strcat(result, c.c_str());
-   // strcat(result, separator.c_str());
-   // strcat(result, name.c_str());
-
-    return id.c_str(); 
+    // Convert the std::string to a C-style string (const char*)
+    return result.c_str();
 }

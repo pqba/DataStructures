@@ -16,11 +16,14 @@ class Stack {
         Stack(Data *a, int s);
         ~Stack();
 
+        int size();
+
         bool isEmpty();
         bool isFull();
 
         void stack_push(Data d);
         Data stack_pop();
+        Data stack_peek();
         void stack_print();
 };
 #endif
