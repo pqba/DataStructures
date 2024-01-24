@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Stack.h"
 #include "Data.h"
 #include <stdexcept>
@@ -61,11 +60,11 @@ int Stack::size(){
 
 bool Stack::isEmpty()
 {
-    return head  < 0;
+    return head < 0;
 }
 bool Stack::isFull()
 {
-    return head == capacity;
+    return head >= capacity;
 }
 
 // Pushes onto stack, capacity is at maximum.
@@ -90,7 +89,6 @@ void Stack::stack_push(Data d)
         }
         else
         {
-            std::cout << "Err, capacity limit reached" << std::endl;
             throw std::invalid_argument("Tried to expand max capacity stack.");
         }
         head++;
@@ -107,7 +105,6 @@ Data Stack::stack_pop()
 {
     if (head < 0)
     {
-        std::cout << "Nothing to be popped. " << std::endl;
         throw std::invalid_argument("Tried to pop empty stack.");
     }
     else
@@ -117,6 +114,7 @@ Data Stack::stack_pop()
         return val;
     }
 }
+
 Data Stack::stack_peek(){
     if(head < 0){
         throw std::invalid_argument("Nothing to be peeked at, empty.");
@@ -127,7 +125,7 @@ Data Stack::stack_peek(){
 }
 
 // Print out each data member of stack
-void Stack::stack_print()
+std::string Stack::stack_output()
 {
     std::ostringstream os;
     for (int i = 0; i < head; i++)
@@ -140,9 +138,24 @@ void Stack::stack_print()
         os << headValue;
     }
     std::string s = os.str();
-    std::cout << s << std::endl;
+    return s;
 }
-
+//print out only the name of each member in stack
+std::string Stack::stack_name_output()
+{
+    std::ostringstream os;
+    for (int i = 0; i < head; i++)
+    {
+        std::string value = (*(array+i)).getName();
+        os << value << "-> ";
+    }
+    if(head >= 0){
+        std::string headValue = (*(array+head)).getName();
+        os << headValue;
+    }
+    std::string s = os.str();
+    return s;
+}
 // head is index of top value, array is working stack, capacity is limit of stack, absolute_max = final limit
 // create stack, size > 0
 void Stack::initialize(int s)
