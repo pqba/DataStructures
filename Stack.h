@@ -24,6 +24,7 @@ class Stack {
         void stack_push(Data d);
         Data stack_pop();
         Data stack_peek();
-        void stack_print();
+        std::string stack_output();
+        std::string stack_name_output();
 };
 #endif
