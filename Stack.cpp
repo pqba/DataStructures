@@ -71,20 +71,30 @@ bool Stack::isFull()
 // Pushes onto stack, capacity is at maximum.
 void Stack::stack_push(Data d)
 {
-    if (head == capacity)
+    if (head == capacity - 1)
     {
-        // check against absolute max
+        // check for capacity and absolute max.
         if (capacity < absolute_max)
         {
-            capacity++;
-            head++;
-            *(array + head) = d;
+            int newcapac = std::min(absolute_max,capacity * 2);
+            Data * newArray = new Data[newcapac];
+
+            for(int i = 0 ; i < capacity; i++){
+                newArray[i] = array[i];
+            }
+
+            delete[] array;
+
+            array = newArray;
+            capacity = newcapac;
         }
         else
         {
             std::cout << "Err, capacity limit reached" << std::endl;
             throw std::invalid_argument("Tried to expand max capacity stack.");
         }
+        head++;
+        array[head] = d;
     }
     else
     {
@@ -116,16 +126,18 @@ Data Stack::stack_peek(){
     }
 }
 
+// Print out each data member of stack
 void Stack::stack_print()
 {
     std::ostringstream os;
     for (int i = 0; i < head; i++)
     {
-        os << *(array + i)->print() << "->";
-        std::cout << *(array+i)->print() << std::endl;
+        std::string value = (*(array+i)).print();
+        os << value << "->";
     }
     if(head >= 0){
-        os << *(array+head)->print();
+        std::string headValue = (*(array+head)).print();
+        os << headValue;
     }
     std::string s = os.str();
     std::cout << s << std::endl;

@@ -1,32 +1,19 @@
 #include "Data.h"
 #include <string>
 #include <cstring>
+#include <cstdlib>
 
-Data::Data()
+Data::Data() : description{0,0,""}
 {
-    setData();
+
 }
-Data::Data(unsigned int i, float f, const char *N)
-{
-    setData(i, f, N);
+Data::Data(int id, float c, std::string n) : description{ id, c, n } {
+
 }
 Data::~Data(){
     
 }
 
-void Data::setData()
-{
-    description.ID_NUMBER = 0;
-    description.constant = 0;
-    description.name = "";
-}
-
-void Data::setData(unsigned int i, float f, const char *N)
-{
-    description.ID_NUMBER = i;
-    description.constant = f;
-    description.name = N;
-}
 // Access entire relevant struct
 internal Data::getData()
 {
@@ -34,7 +21,7 @@ internal Data::getData()
 }
 
 // Access members of struct
-unsigned int Data::getID()
+int Data::getID()
 {
     return description.ID_NUMBER;
 }
@@ -42,20 +29,17 @@ float Data::getConstant()
 {
     return description.constant;
 }
-const char * Data::getName()
+std::string Data::getName()
 {
-    return description.name + '\0';
+    std::string res(description.name);
+    return res;
 }
-
 // Return ch array of id, constant, and name
-const char * Data::print()
+const std::string Data::print() 
 {
-    std::string id = std::to_string(getID());
-    std::string c = std::to_string(getConstant());
-    std::string name = getName();
-    
-    std::string result = id + "-" + c + "-" + name;
+    std::string idStr = std::to_string(getID()) + "-";
+    std::string constantStr = std::to_string(getConstant()) + "-";
+    std::string nameStr(getName());
 
-    // Convert the std::string to a C-style string (const char*)
-    return result.c_str();
+    return idStr + constantStr + nameStr;
 }

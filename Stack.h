@@ -7,7 +7,7 @@ class Stack {
         int absolute_max = 1000;
         int capacity;
         int head;
-        Data *array;
+        Data * array;
         void initialize(int s);
         int boundCapacity(int c);
 
