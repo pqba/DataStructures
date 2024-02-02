@@ -5,6 +5,12 @@
 struct Node {
     Data info;
     struct Node * link;
+    // Returns if internals of Data are the exact same.
+    bool sameAs(Node * comp){
+        internal other = comp->info.getData();
+        internal ours = info.getData();
+        return ours.constant == other.constant && ours.ID_NUMBER == other.ID_NUMBER && ours.name == other.name;
+    }
 };
 
 class LinkedList {
@@ -14,11 +20,17 @@ class LinkedList {
         LinkedList();
         ~LinkedList();
 
-        int length();
+        int size();
         void clear();
+        bool isEmpty();
 
         void remove(Node *);
         void add(Node *);
+        void add(Node *, int);
+       
+       Node * get(int);
+       void set(Node *, int);
+
 };
 
 #endif
