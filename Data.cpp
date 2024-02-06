@@ -8,10 +8,12 @@ Data::Data() : description{0,0,""}
 
 }
 Data::Data(int id, float c, std::string n) : description{ id, c, n } {
-
+    
 }
 Data::~Data(){
-    
+    description.constant = 0;
+    description.ID_NUMBER = 0;
+    description.name = "";
 }
 
 // Access entire relevant struct

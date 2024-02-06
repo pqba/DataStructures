@@ -16,20 +16,20 @@ struct internal
 // Class for data in structure implementations
 class Data
 {
-public:
-    internal description;
-    Data();
-    Data( int i, float f, std::string N);
-    ~Data();
+    public:
+        internal description;
+        Data();
+        Data( int i, float f, std::string N);
+        ~Data();
 
-    internal getData();
+        internal getData();
 
-    int getID();
+        int getID();
 
-    float getConstant();
+        float getConstant();
 
-    std::string getName();
+        std::string getName();
 
-    const std::string print();
+        const std::string print();
 };
 #endif
