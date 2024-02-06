@@ -1,6 +1,7 @@
 #include "Data.h"
 #include "LinkedList.h"
 #include <stdexcept>
+#include <string>
 
 /*
 Singly Linked List Implementation. 
@@ -30,14 +31,13 @@ int LinkedList::size(){
 }
 // Empties list, deletes all nodes.
 void LinkedList::clear(){
-    if(head != nullptr) {
-        Node * current = head;
-        while(current != nullptr){
-            Node * next = current->link;
-            delete current;
-            Node * current = next;
-        }
+    Node * current = head;
+    while(current != nullptr){
+        Node * next = current->link;
+        delete current;
+        current = next;
     }
+    head = nullptr;
 }
 // Returns if the linkedlist is empty
 bool LinkedList::isEmpty(){
@@ -45,6 +45,7 @@ bool LinkedList::isEmpty(){
 }
 
 // Removes the first Node pointer which matches one in list. If nonexistent, does nothing.
+// TODO: fix this function.
 void LinkedList::remove(Node * item){
     if(item == head){
         head = nullptr;
@@ -86,12 +87,35 @@ void LinkedList::add(Node * item){
 }
 //Adds Node to index in list, throws error if index out of bounds
 void LinkedList::add(Node * item, int index){
+    int count = 0;
     if(index < 0 || index > size()){
         throw std::invalid_argument("Insertion index out of bounds.");
     }
-    Node * curr = head;
-    while(curr != nullptr){
-        
+    Node * curr = head; 
+    while(count != index){
         curr = curr->link;
+        count++;
     }
+    // before (current idx) -> item -> after 
+    Node * before = curr;
+    curr = item;
+    if(before == nullptr) {
+        curr->link = nullptr;
+    }
+    else {
+        Node * after = before->link;
+        item->link = after;
+        before->link = item;
+    }
+}
+std::string LinkedList::print(){
+    Node * top = head;
+    std::string output;
+    while(top != nullptr){
+       std::string line = top->info.print() + "=>";
+       output += line;
+       top = top->link;
+    }
+    output += "null";
+    return output;
 }

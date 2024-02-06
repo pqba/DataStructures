@@ -1,21 +1,29 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
-#include "Data.h";
+#include "Data.h"
 
-struct Node {
+struct Node
+{
     Data info;
-    struct Node * link;
+    struct Node *link;
     // Returns if internals of Data are the exact same.
-    bool sameAs(Node * comp){
+    bool sameAs(Node *comp) {
         internal other = comp->info.getData();
         internal ours = info.getData();
         return ours.constant == other.constant && ours.ID_NUMBER == other.ID_NUMBER && ours.name == other.name;
+    }
+    ~Node() {
+    }
+    Node(Data d) {
+        info = d;
+        link = nullptr;
     }
 };
 
 class LinkedList {
     private:
-        Node * head;
+        Node *head;
+
     public:
         LinkedList();
         ~LinkedList();
@@ -27,10 +35,12 @@ class LinkedList {
         void remove(Node *);
         void add(Node *);
         void add(Node *, int);
-       
-       Node * get(int);
-       void set(Node *, int);
 
+        // Future implementations.
+        // Node * get(int);
+        // void set(Node *, int);
+
+        std::string print();
 };
 
 #endif
