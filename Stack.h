@@ -12,7 +12,7 @@ class Stack {
         int boundCapacity(int c);
 
     public:
-        Stack(int s);
+        Stack(int=1);
         Stack(Data *a, int s);
         ~Stack();
 

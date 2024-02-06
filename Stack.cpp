@@ -19,7 +19,7 @@ References : https://www.cse.unr.edu/~sushil/class/cs202/notes/stacks/stacks.htm
 */
 
 // Stack implementation on data class 
-Stack::Stack(int size = 1)
+Stack::Stack(int size)
 {
     size = boundCapacity(size);
     initialize(size);
