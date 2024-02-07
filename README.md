@@ -1,4 +1,3 @@
-
 <h1> Data Structures </h1>
 <em>A project to learn about, create use cases of, and generally construct useful data structures. </em>
 
@@ -7,6 +6,7 @@ This repository includes implementations for:
 
 * Stack
 * Queue
+* Singly Linked List
 
 
 ## Usage
@@ -19,28 +19,23 @@ Then run and  execute your code, and ensure the correct header files are include
 
 ## File Structure of Project
 ```
-DataStructures:
-│   .gitignore
-│   Data.cpp
-│   Data.h
-│   Queue.cpp
-│   Queue.h
-│   Stack.cpp
-│   Stack.h
-│   Structures.md
-│   testImplements.cpp
-│
-├───.vscode
-│       launch.json
-│       settings.json
-│       tasks.json
-│
-└───uses
-        RPN.cpp
+.
+├── Data.cpp
+├── Data.h
+├── LinkedList.cpp
+├── LinkedList.h
+├── Queue.cpp
+├── Queue.h
+├── README.md
+├── Stack.cpp
+├── Stack.h
+├── tImpl
+├── testImplements.cpp
+└── uses
+    └── RPN.cpp
 ```
 
 ## License
-
 
 This project is licensed under the MIT License.
 
