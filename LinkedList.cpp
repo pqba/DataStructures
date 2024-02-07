@@ -2,6 +2,7 @@
 #include "LinkedList.h"
 #include <stdexcept>
 #include <string>
+#include <iostream>
 
 /*
 Singly Linked List Implementation. 
@@ -45,41 +46,70 @@ bool LinkedList::isEmpty(){
 }
 
 // Removes the first Node pointer which matches one in list. If nonexistent, does nothing.
-// TODO: fix this function.
 void LinkedList::remove(Node * item){
-    if(item == head){
-        head = nullptr;
+    if(head == nullptr || item == nullptr){
+        return;
+    }
+    else if(item->sameAs(head)){
+        if(head->link != nullptr){
+            setHead(head->link);
+        }
+        else { 
+            head = nullptr;
+        }
     }
     else {
-        Node * curr = head;
-        while(curr->link != nullptr){
-            Node * next = curr->link;
-            // If the next node is the one to remove, point current to the other after next, or null
-            if(next->sameAs(item)){
-                Node * after = next->link;
-                if(after == nullptr){
-                    curr->link = nullptr;
+        Node * curr = head; Node * past = nullptr;
+        while(curr->link != nullptr) {
+            past = curr;
+            curr = curr->link;
+            if(curr->sameAs(item)) {
+                Node * next = curr->link;
+                if(next == nullptr) {
+                    past->link = nullptr;
                 }
                 else {
-                    curr->link = after;
+                    past->link = next;
                 }
-                //Item was found to remove.
-                break;
+            delete curr;
+            return;
             }
-            delete next;
-            curr = curr->link;
         }
+    }
+}
+// Removes the Node at a specified index
+void LinkedList::remove(int index){
+    checkIndex("Removal index out of bounds",index);
+    int count = 0;
+    Node * curr = head; Node * past = nullptr;
+    while(count != index) {
+        past = curr;
+        curr = curr->link;
+        count++;
+    } 
+
+    if(index == 0) {
+        setHead(curr->link);
+        return;
+    }
+
+    Node * next = curr->link;
+    if(next == nullptr) { 
+        past->link = nullptr;
+    } 
+    else { 
+        past->link = next;
     }
 }
 // Adds Node to the end of linked list
 void LinkedList::add(Node * item){
-    if(head == nullptr){
+    if(head == nullptr) {
         head = item;
     }
     else {
         Node * curr = head;
         // Loop to end of list
-        while(curr->link != nullptr){
+        while(curr->link != nullptr) {
             curr = curr->link;
         }
         curr->link = item;
@@ -88,16 +118,19 @@ void LinkedList::add(Node * item){
 //Adds Node to index in list, throws error if index out of bounds
 void LinkedList::add(Node * item, int index){
     int count = 0;
-    if(index < 0 || index > size()){
-        throw std::invalid_argument("Insertion index out of bounds.");
+    checkIndex("Insertion index out of bounds",index);
+    if(head == nullptr) {
+        setHead(item);
+        return;
     }
+
     Node * curr = head; 
-    while(count != index){
+    while(count != index) {
         curr = curr->link;
         count++;
     }
     // before (current idx) -> item -> after 
-    Node * before = curr;
+    Node * before = curr; 
     curr = item;
     if(before == nullptr) {
         curr->link = nullptr;
@@ -108,14 +141,34 @@ void LinkedList::add(Node * item, int index){
         before->link = item;
     }
 }
-std::string LinkedList::print(){
+// Gets Node at specified index.
+Node * LinkedList::get(int index) {
+    checkIndex("Access index out of bounds.",index);
+    Node * curr = head;
+    int count = 0;
+    while(count != index) {
+        curr = curr->link;
+        count++;
+    }
+    return curr;
+    
+}
+// Returns string representation of singly linked list.
+std::string LinkedList::print() {
     Node * top = head;
     std::string output;
-    while(top != nullptr){
+    while(top != nullptr) {
        std::string line = top->info.print() + "=>";
        output += line;
        top = top->link;
     }
     output += "null";
     return output;
+}
+
+// Throws specified error message if inputted index is out of bounds for list.
+void LinkedList::checkIndex(std::string msg, int possibleInd) {
+    if(possibleInd < 0 || possibleInd >= size()) {
+        throw std::invalid_argument(msg);
+    }
 }

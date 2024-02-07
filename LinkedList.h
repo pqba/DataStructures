@@ -23,7 +23,9 @@ struct Node
 class LinkedList {
     private:
         Node *head;
-
+        void setHead(Node * Nd){
+            head = Nd;
+        }
     public:
         LinkedList();
         ~LinkedList();
@@ -33,12 +35,15 @@ class LinkedList {
         bool isEmpty();
 
         void remove(Node *);
+        void remove(int);
         void add(Node *);
         void add(Node *, int);
 
         // Future implementations.
-        // Node * get(int);
+        Node * get(int);
         // void set(Node *, int);
+
+        void checkIndex(std::string,int);
 
         std::string print();
 };
