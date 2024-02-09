@@ -2,7 +2,6 @@
 #include "LinkedList.h"
 #include <stdexcept>
 #include <string>
-#include <iostream>
 
 /*
 Singly Linked List Implementation. 
@@ -193,7 +192,6 @@ std::string LinkedList::print() {
 // Throws specified error message if inputted index is out of bounds for list.
 void LinkedList::checkIndex(std::string msg, int possibleInd) {
     if(possibleInd < 0 || possibleInd >= size()) {
-        std::cout << "size: " << size() << std::endl;
         throw std::invalid_argument(msg);
     }
 }
