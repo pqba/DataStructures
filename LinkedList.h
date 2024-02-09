@@ -24,6 +24,7 @@ class LinkedList {
     private:
         Node *head;
         void setHead(Node * Nd){
+            Nd->link = head->link;
             head = Nd;
         }
     public:
@@ -39,9 +40,8 @@ class LinkedList {
         void add(Node *);
         void add(Node *, int);
 
-        // Future implementations.
         Node * get(int);
-        // void set(Node *, int);
+        void set(Node *, int);
 
         void checkIndex(std::string,int);
 
