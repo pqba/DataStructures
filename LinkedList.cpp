@@ -117,30 +117,32 @@ void LinkedList::add(Node * item){
 }
 //Adds Node to index in list, throws error if index out of bounds
 void LinkedList::add(Node * item, int index){
-    int count = 0;
-    checkIndex("Insertion index out of bounds",index);
-    if(head == nullptr) {
+    if (index < 0 || index > size()) {
+        throw std::invalid_argument("Insertion index out of bounds");
+    }   
+    if(index == 0 && head == nullptr) {
         setHead(item);
         return;
     }
+    else if(index == 0){
+        item->link = head;
+        head = item;
+        return;
+    }
 
+    int count = 0;
     Node * curr = head; 
-    while(count != index) {
+    
+    // Move to right before inseration
+    while(count != index - 1) {
         curr = curr->link;
         count++;
     }
-    // before (current idx) -> item -> after 
-    Node * before = curr; 
-    curr = item;
-    if(before == nullptr) {
-        curr->link = nullptr;
-    }
-    else {
-        Node * after = before->link;
-        item->link = after;
-        before->link = item;
-    }
+    // curr -> item -> curr's link
+    item->link = curr->link;
+    curr->link = item;
 }
+
 // Gets Node at specified index.
 Node * LinkedList::get(int index) {
     checkIndex("Access index out of bounds.",index);
@@ -153,9 +155,31 @@ Node * LinkedList::get(int index) {
     return curr;
     
 }
+// Sets Node at specified index.
+void LinkedList::set(Node * item, int index){
+    checkIndex("Set index out of bounds.",index);
+    if(index == 0){
+        setHead(item);
+        return;
+    }
+    Node * curr = head;
+    int count = 0;
+    while(count < index - 1){
+        curr = curr->link;
+        count++;
+    }
+    // Curr -> ITEM -> toSet->link;
+    Node * toSet = curr->link;
+    item->link = toSet->link;  
+    curr->link = item;
+}
+
 // Returns string representation of singly linked list.
 std::string LinkedList::print() {
     Node * top = head;
+    if(top == nullptr){
+        return "empty.";
+    }
     std::string output;
     while(top != nullptr) {
        std::string line = top->info.print() + "=>";
@@ -169,6 +193,7 @@ std::string LinkedList::print() {
 // Throws specified error message if inputted index is out of bounds for list.
 void LinkedList::checkIndex(std::string msg, int possibleInd) {
     if(possibleInd < 0 || possibleInd >= size()) {
+        std::cout << "size: " << size() << std::endl;
         throw std::invalid_argument(msg);
     }
 }
