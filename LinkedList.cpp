@@ -29,15 +29,13 @@ int LinkedList::size(){
     }
     return length;
 }
-// Empties list, deletes all nodes.
+// Empties list, deletes all nodes. 
 void LinkedList::clear(){
-    Node * current = head;
-    while(current != nullptr){
-        Node * next = current->link;
-        delete current;
-        current = next;
+    while(head != nullptr){
+       Node * current = head;
+       head = head->link;
+       delete current;
     }
-    head = nullptr;
 }
 // Returns if the linkedlist is empty
 bool LinkedList::isEmpty(){
@@ -154,6 +152,21 @@ Node * LinkedList::get(int index) {
     return curr;
     
 }
+// Finds index for specified Node, returns -1 otherwise
+int LinkedList::find(Node * nd){
+    if(head == nullptr){
+        return -1;
+    }
+    Node * curr = head; int ind = 0;
+    while(curr->link != nullptr){
+        if(curr->sameAs(nd)){
+            return ind;
+        }
+        curr = curr->link;
+        ind++;
+    }
+    return -1;
+}
 // Sets Node at specified index.
 void LinkedList::set(Node * item, int index){
     checkIndex("Set index out of bounds.",index);
@@ -169,8 +182,9 @@ void LinkedList::set(Node * item, int index){
     }
     // Curr -> ITEM -> toSet->link;
     Node * toSet = curr->link;
-    item->link = toSet->link;  
     curr->link = item;
+    item->link = toSet->link;  
+    delete toSet; // must be removed.
 }
 
 // Returns string representation of singly linked list.
