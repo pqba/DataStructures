@@ -41,6 +41,7 @@ class LinkedList {
         void add(Node *, int);
 
         Node * get(int);
+        int find(Node *);
         void set(Node *, int);
 
         void checkIndex(std::string,int);
