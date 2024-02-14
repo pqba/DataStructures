@@ -62,14 +62,9 @@ void LinkedList::remove(Node * item){
             curr = curr->link;
             if(curr->sameAs(item)) {
                 Node * next = curr->link;
-                if(next == nullptr) {
-                    past->link = nullptr;
-                }
-                else {
-                    past->link = next;
-                }
-            delete curr;
-            return;
+                past->link = next;
+                delete curr;
+                return;
             }
         }
     }
