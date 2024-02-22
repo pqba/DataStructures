@@ -5,7 +5,7 @@
 #include <random>
 
 // Compilation:  g++ -std=c++11 -o tImpl testImplements.cpp Data.cpp LinkedList.cpp
-
+// Eventually create makefile. 
 int main()
 {
     // Generate items
@@ -23,17 +23,15 @@ int main()
     std::mt19937 rng(dev());
 
     std::uniform_int_distribution<std::mt19937::result_type> distItem(1, amt_items - 1);
-    std::uniform_int_distribution<std::mt19937::result_type> distAmount(1, amt_items / (amt_items/10));
+    std::uniform_int_distribution<std::mt19937::result_type> distAmount(1, amt_items / (amt_items/100));
     int testTimes = distAmount(rng);
 
     for (int i = 0; i < testTimes; i++)
     {
         int num = distItem(rng);
-        std::cout << "#" << num << ": " << list.get(num)->info.print() << std::endl;
-        Node *setterNode = new Node(Data(num, num * 1, "S" + std::to_string(i)));
-        list.set(setterNode, num);
-        int where = list.find(setterNode);
-        std::cout << "#" << where << ": " << list.get(where)->info.print() << std::endl;
+        list.remove(list.get(num));
+        Node * betterItem = new Node(Data(num,num,"b"+std::to_string(num)));
+        list.add(betterItem,num);
     }
     std::cout << "size: " << list.size() << std::endl;
     std::cout << "empty? " << list.isEmpty() << std::endl;
