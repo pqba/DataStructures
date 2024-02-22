@@ -15,6 +15,11 @@ Data::~Data(){
     description.ID_NUMBER = 0;
     description.name = "";
 }
+bool Data::operator==(const Data& other){
+    return this->description.constant == other.description.constant &&
+    this->description.ID_NUMBER == other.description.ID_NUMBER &&
+    this->description.name == other.description.name;
+}
 
 // Access entire relevant struct
 internal Data::getData()

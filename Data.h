@@ -19,8 +19,9 @@ class Data
     public:
         internal description;
         Data();
-        Data( int i, float f, std::string N);
+        Data(int i, float f, std::string N);
         ~Data();
+        bool operator==(const Data&);
 
         internal getData();
 
