@@ -1,0 +1,8 @@
+# Ignore the entire .vscode directory
+.vscode/
+# Ignore all executable files
+*.exe
+# Ignore all object files
+*.o
+# Ignore binaries in the bin/ directory (and any subdirectories)
+bin/
