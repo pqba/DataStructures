@@ -1,5 +1,6 @@
 #include "../include/Structures/Data.h"
 #include "../include/Structures/DoublyLinkedList.h"
+#include "../include/Common/MusicPlayer.h"
 
 // basic utils
 #include <iostream>
@@ -38,6 +39,31 @@ void testDLL(){
     int len = list.size();
     printf("size():%d Actual:%d\n",len,amt_items);
 }
+
+void testMusic(){
+    MusicPlayer m;
+    Song s = {"h","bob","--MAGICALBOB--",489};
+    Song b = {"jilly","indigo","Fun Jilly Land Art **:)**",302};
+    std::string hors_ac = R"(              .     :     .
+            .  :    |    :  .
+             .  |   |   |  ,
+              \  |     |  /
+          .     ,-'"""`-.     .
+            "- /  __ __  \ -"
+              |==|  I  |==|
+        - --- | _`--^--'_ | --- -
+              |'`.     ,'`|
+            _- \  "---"  / -_
+          .     `-.___,-'     .
+              /  |     |  \
+            .'  |   |   |  `.
+               :    |    :
+              .     :     .)";
+
+    Song q = {"House of the Rising Sun","The Animals",hors_ac,269};
+    m.addSong(s); m.addSong(b); m.addSong(q);
+    m.display();
+}
 int main() {
 
     std::cout << "BEGIN MAIN()" << std::endl;
@@ -46,7 +72,10 @@ int main() {
    // testRPN();
 
     // test DLL
-    testDLL();
+   // testDLL();
+
+   //test music
+   testMusic();
    
     std::cout << "END MAIN()" << std::endl;
     return 0;
