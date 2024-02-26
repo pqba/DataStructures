@@ -2,7 +2,7 @@
 #define DATA_H
 #include <string>
 /*
-Abstract Data header file to be possibly switched out for relevant data. Make a print() function to visualize.
+Abstract Data header file to be possibly switched out for relevant data.
 */
 
 // Struct for basic data
