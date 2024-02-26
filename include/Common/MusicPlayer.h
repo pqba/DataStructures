@@ -20,6 +20,9 @@ struct Song {
     std::string display() {
         return title + "|" + musician + "|" + std::to_string(length) + "\n" + albumCover;
     }
+    bool operator==(const Song& other){
+        return other.title == title && other.musician == musician && other.albumCover == albumCover && other.length == length;
+    }
 };
 
 
