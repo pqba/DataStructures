@@ -1,38 +1,73 @@
-<h1> Data Structures </h1>
-<em>A project to learn about, create use cases of, and generally construct useful data structures. </em>
+# Data Structures
+*A project to learn about, create use cases of, and generally construct useful data structures.*
 
 ## Features
-This repository includes implementations for:
+What comes included in the project.
+
+### Data Structures
 
 * Stack
 * Queue
 * Singly Linked List
+* Doubly Linked List
 
+### Common
+* Reverse Polish Notation Calculator
+* Music Player
 
 ## Usage
 
-Use the classes by creating a .cpp file of your liking in the /uses folder, and then linking and compiling with:
- <code> g++ -I../ -o your_implementation your_implementation.cpp ../Data_Structure_Used.cpp ../Data_Structure_Used_2.cpp </code><br>
- and then: <code>.\your_implementation</code>
-
-Then run and  execute your code, and ensure the correct header files are included, and try out the structures for yourself. You can also change the <b>'Data'</b> class <em>(.cpp and .h)</em> to perform operations and create structures of your own defined Data.
+Use the classes and data structures by running **main.cpp** this way, using the Makefile:
+```
+make all
+cd bin/
+./main_executable
+make clean
+```
 
 ## File Structure of Project
+
+* Makefile to compile everything correctly
+* ```bin/``` and ```obj/``` directories for object and binary files created
+* ```include/``` for header files
+* ```src/``` for .cpp files
+* ```test/``` for test files of structures
+
+### Notes
+ 1. ```Structures/``` has the data structure part in any specific parent directory
+ 2. ```Common/``` has the **common** implementations and use cases for any parent directory
 ```
 .
-├── Data.cpp
-├── Data.h
-├── LinkedList.cpp
-├── LinkedList.h
-├── Queue.cpp
-├── Queue.h
+├── Makefile
 ├── README.md
-├── Stack.cpp
-├── Stack.h
-├── tImpl
-├── testImplements.cpp
-└── uses
-    └── RPN.cpp
+├── bin
+├── include
+│   ├── Common
+│   │   └── MusicPlayer.h
+│   └── Structures
+│       ├── Data.h
+│       ├── DoublyLinkedList.h
+│       ├── LinkedList.h
+│       ├── Queue.h
+│       └── Stack.h
+├── obj
+│   ├── Common
+│   └── Structures
+├── src
+│   ├── Common
+│   │   ├── MusicPlayer.cpp
+│   │   └── RPN.cpp
+│   ├── Structures
+│   │   ├── Data.cpp
+│   │   ├── DoublyLinkedList.cpp
+│   │   ├── LinkedList.cpp
+│   │   ├── Queue.cpp
+│   │   └── Stack.cpp
+│   └── main.cpp
+└── test
+    ├── Common
+    └── Structures
+        └── dllTest.cpp
 ```
 
 ## License
@@ -41,6 +76,7 @@ This project is licensed under the MIT License.
 
 ## Acknowledgements
 
-The implementations of the data structures were informed by
+The implementations of the data structures were informed by online resources from
 
-[Wikipedia](https://en.wikipedia.org/) and [University of Nevada, Reno](https://www.cse.unr.edu/~sushil/class/cs202/notes/stacks/stacks.html) and [University of Western Ontario](https://www.csd.uwo.ca/courses/CS1027b/notes/CS1027-Queues-W17.pdf) 
+[Wikipedia](https://en.wikipedia.org/) 
+U Nevada Reno, Stanford, CMU, U Western Ontario, Jackson State U
