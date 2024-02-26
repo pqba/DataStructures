@@ -181,6 +181,43 @@ void DoublyLinkedList<T>::add(Node<T> * nd, int ind){
         curr->next = nd;
     }
 }
+// Reverses the doubly linked list. Unfinished.
+template <class T>
+void DoublyLinkedList<T>::reverse(){
+  Node<T> * tmp = nullptr;
+  Node<T> * curr = head;
+  tail = head;
+  if(head != nullptr){
+    tail->prev = head->next;
+  }
+  while(curr != nullptr){
+    tmp = curr->prev;
+    curr->prev = curr->next;
+    curr->next = tmp;
+    curr = curr->prev;
+  }
+  if(tmp != nullptr){
+    head = tmp->prev;
+  }
+}
+// Returns Node at Head
+template <class T>
+Node<T> * DoublyLinkedList<T>::getHead(){
+    if(head != nullptr){
+        return head;
+    }
+    throw std::invalid_argument("No list head to get.");
+}
+// Returns Node at specified index
+template <class T>
+Node<T> * DoublyLinkedList<T>::get(int ind){
+    checkIndex("Invalid index to get",ind);
+    Node<T> * curr = head;
+    for(int i = 0; i<ind ;i++){
+        curr = curr->next;
+    }
+    return curr;
+}
 // Searches for Node in list, returns index if found, -1 otherwise.
 template<class T>
 int DoublyLinkedList<T>::find(Node <T> * nd) {

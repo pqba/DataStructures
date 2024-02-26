@@ -29,14 +29,15 @@ class DoublyLinkedList {
         int size();
         void clear();
         bool isEmpty();
-        int find();
 
         void remove(Node<T> *);
         void remove(int);
         void add(Node<T> *);
         void add(Node<T> *, int);
+        void reverse();
 
         Node<T> * get(int);
+        Node<T> * getHead();
         int find(Node<T> *);
         void set(Node<T> *, int);
 
