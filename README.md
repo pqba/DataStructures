@@ -45,6 +45,7 @@ Project Structure:
 ├── include
 │   ├── Common
 │   │   ├── Event.h
+│   │   ├── EventHandler.h
 │   │   └── MusicPlayer.h
 │   └── Structures
 │       ├── Data.h
