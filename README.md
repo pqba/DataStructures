@@ -14,6 +14,7 @@ What comes included in the project.
 ### Common
 * Reverse Polish Notation Calculator
 * Music Player
+* Event Handling System
 
 ## Usage
 
@@ -36,13 +37,14 @@ make clean
 ### Notes
  1. ```Structures/``` has the data structure part in any specific parent directory
  2. ```Common/``` has the **common** implementations and use cases for any parent directory
+Project Structure:
 ```
 .
 ├── Makefile
 ├── README.md
-├── bin
 ├── include
 │   ├── Common
+│   │   ├── Event.h
 │   │   └── MusicPlayer.h
 │   └── Structures
 │       ├── Data.h
@@ -50,11 +52,9 @@ make clean
 │       ├── LinkedList.h
 │       ├── Queue.h
 │       └── Stack.h
-├── obj
-│   ├── Common
-│   └── Structures
 ├── src
 │   ├── Common
+│   │   ├── EventHandler.cpp
 │   │   ├── MusicPlayer.cpp
 │   │   └── RPN.cpp
 │   ├── Structures

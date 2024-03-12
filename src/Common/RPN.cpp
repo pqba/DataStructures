@@ -65,6 +65,9 @@ public:
     // To implement. Outputs algebraic interpretation of eq.
     void describeAlgebraic(std::string eq)
     {
+        for(int i = 0; i < (int)eq.length();i++){
+            std::cout << "unfinished" << std::endl;
+            }
     }
     /*
     Parses input, initializes notator Stack
@@ -122,7 +125,7 @@ public:
             }
             int total;
             // Apply operator to top 2 in list (only binary operations supported)
-            for (int i = 0; i < orands.size() - 1; i++)
+            for (int i = 0; i < (int)orands.size() - 1; i++)
             {
                 int calc = operate(op, orands[i], orands[i + 1]);
                 printf("%d %c %d = %d ", orands[i], op, orands[i + 1], calc);
@@ -167,7 +170,7 @@ public:
     bool isANumber(std::string s)
     {
         bool isNumerical = true;
-        for (int i = 0; i < s.length(); i++)
+        for (int i = 0; i < (int)s.length(); i++)
         {
             if (!isdigit(s[i]))
             {

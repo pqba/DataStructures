@@ -139,6 +139,7 @@ void DoublyLinkedList<T>::add(Node<T> * nd){
     }
 }
 // Adds node to doubly linked list after the specified index at (0 -> size() - 1)
+// TODO: Fix.
 template<class T>
 void DoublyLinkedList<T>::add(Node<T> * nd, int ind){
     checkIndex("Invalid index to add. ",ind);
