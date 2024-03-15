@@ -81,8 +81,6 @@ void EH::runEventHandle(){
         std::cout << "Enter event type and data in format -> integer,type and seperate events by spaces. Otherwise, enter 'Q' to quit: ";
         std::string input;
         std::getline(std::cin,input);
-        // Eventually allow for space sepeterated input, right now it is just 1 at a time. 
-        // Also allow for reading from file.
         std::cout << std::endl;
         if(strcasecmp(input.c_str(),"Q") == 0){
             break;
