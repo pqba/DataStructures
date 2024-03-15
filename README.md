@@ -25,6 +25,7 @@ cd bin/
 ./main_executable
 make clean
 ```
+In case of bugs, use ```make debug``` instead for tracing.
 
 ## File Structure of Project
 
