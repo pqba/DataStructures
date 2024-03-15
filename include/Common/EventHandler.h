@@ -1,14 +1,24 @@
 #include "../../include/Common/Event.h"
 #include "../../include/Structures/Queue.h"
 
-#pragma once
-
+// Namespace for Event Handler
 namespace EH {
-
-    // Declare functions
+    // Handles Restaurant Events
     void handleRestaurant(Event e);
+
+    // Handles Bank Events
     void handleBank(Event e);
+
+    // Hnadles school Events
     void handleSchool(Event e);
+
+    // Main processing routine for Events
     void runEventHandle();
 
-} // namespace eh
+    // Processes space delimited inp, places it into parse events
+    Queue<Event> getEvents(std::string inp);
+
+    // Takes string in format: int,eventType and transforms it into event object
+    Event parseEvent(std::string s);
+
+}
