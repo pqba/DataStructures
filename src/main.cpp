@@ -15,11 +15,9 @@
 
 /*
 MAIN.CPP File for entire project.
-
 Run project:
 $: make all
-$: cd bin/
-$: ./main_executable
+$: bin/main_executable
 $: make clean
 */
 
