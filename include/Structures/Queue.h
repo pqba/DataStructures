@@ -21,6 +21,7 @@ class Queue {
         int size();
 
         void expand();
+        void extend(Queue<T>&);
 
         void enqueue(T);
         T dequeue();

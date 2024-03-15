@@ -10,15 +10,14 @@
 
 template<class T>
 // Creates Queue of initial size
-Queue<T>::Queue()
-{
+Queue<T>::Queue() {
     front = -1;
     array = new T[INIT_SIZE];
     count = INIT_SIZE;
 }
 template<class T>
 // Intializes Queue with size length.
-Queue<T>::Queue(int size){
+Queue<T>::Queue(int size) {
     front = -1;
     int bounded = boundCapacity(size);
     array = new T[bounded];
@@ -26,7 +25,7 @@ Queue<T>::Queue(int size){
 }
 template<class T>
 // Initializes Queue from array of T objects with size length
-Queue<T>::Queue(T * past, int length){
+Queue<T>::Queue(T * past, int length) {
     if(length > absolute_max || length < 1) {
         throw std::invalid_argument("Invalid queue length.");
     }
@@ -38,15 +37,13 @@ Queue<T>::Queue(T * past, int length){
 }
 template<class T>
 // Destructs Queue
-Queue<T>::~Queue()
-{
+Queue<T>::~Queue() {
     clear();
 }
 
 // Clears Queue memory
 template<class T>
-void Queue<T>::clear()
-{
+void Queue<T>::clear() {
     front = -1;
     delete[] array;
     array = nullptr; // Set to nullptr after deletion.
@@ -54,20 +51,17 @@ void Queue<T>::clear()
 }
 // Returns if the queue is empty
 template<class T>
-bool Queue<T>::isEmpty()
-{
+bool Queue<T>::isEmpty() {
     return front < 0;
 }
 // Returns size of Queue
 template<class T>
-int Queue<T>::size()
-{
+int Queue<T>::size() {
     return front+1;
 }
 // Adds an element to the rear of the queue
 template<class T>
-void Queue<T>::enqueue(T d)
-{
+void Queue<T>::enqueue(T d) {
     expand();
     front++;
     array[front] = d;
@@ -75,8 +69,7 @@ void Queue<T>::enqueue(T d)
 
 // Removes an element from the front of the queue
 template<class T>
-T Queue<T>::dequeue()
-{
+T Queue<T>::dequeue() {
     if(front < 0) {
         throw std::invalid_argument("Queue is empty, can't dequeue.");
     }
@@ -94,8 +87,8 @@ T Queue<T>::dequeue()
     }
 }
 template <class T>
-T Queue<T>::peek(){
-    if(front < 0){
+T Queue<T>::peek() {
+    if(front < 0) {
         throw std::invalid_argument("Queue is empty, can't peek.");
     }
     else {
@@ -105,7 +98,7 @@ T Queue<T>::peek(){
 
 // Expands underlying array based on current count size. 
 template<class T>
-void Queue<T>::expand(){
+void Queue<T>::expand() {
     if(front == count-1) {
         if(count < absolute_max) {
             int new_capac = std::min(absolute_max,static_cast<int>(count * 1.5));
@@ -121,31 +114,38 @@ void Queue<T>::expand(){
         }
     }
 }
+
+// Extends current Queue by other Queue. Order is maintained within Queue, 'other' is after.
+template<class T>
+void Queue<T>::extend(Queue<T>&other) {
+    while(!other.isEmpty()) {
+        T item = other.dequeue();
+        enqueue(item);
+    }
+}   
 // Outputs Queue
 template<class T>
-const std::string& Queue<T>::print()  {
+const std::string& Queue<T>::print() {
     static std::string s;
     s.clear();
-    for(int i = 0; i <= front;i++){
+    for(int i = 0; i <= front;i++)  {
       s += array[i].print() + "  ";
     }
     return s;
 }
 
 template<class T>
-void Queue<T>::checkIndex(std::string msg, int possibleInd)
-{
-    if (possibleInd < 0 || possibleInd >= size())
-    {
+void Queue<T>::checkIndex(std::string msg, int possibleInd) {
+    if (possibleInd < 0 || possibleInd >= size()) {
         throw std::invalid_argument(msg);
     }
 }
 template<class T>
-int Queue<T>::boundCapacity(int c){
-    if(c < 1){
+int Queue<T>::boundCapacity(int c) {
+    if(c < 1) {
         c = 1;
     }
-    else if(c > absolute_max){
+    else if(c > absolute_max) {
         c = absolute_max;
     }
     return c;
