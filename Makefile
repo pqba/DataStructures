@@ -2,6 +2,9 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra
 
+# Debug compilation flags
+DEBUG_FLAGS = -g -O0
+
 # Project directory variables
 SRCDIR = src
 INCDIR = include
@@ -17,8 +20,9 @@ OBJS := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
 # Main executable
 MAIN_EXEC = $(BINDIR)/main_executable
 
-# Test executable (commented out)
-# TEST_EXEC = $(BINDIR)/dll_test_executable
+# Debug target
+debug: CXXFLAGS += $(DEBUG_FLAGS)
+debug: $(MAIN_EXEC)
 
 # Default target
 all: $(MAIN_EXEC)
