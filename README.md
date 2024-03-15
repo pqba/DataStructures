@@ -21,8 +21,7 @@ What comes included in the project.
 Use the classes and data structures by running **main.cpp** this way, using the Makefile:
 ```
 make all
-cd bin/
-./main_executable
+bin/main_executable
 make clean
 ```
 In case of bugs, use ```make debug``` instead for tracing.
