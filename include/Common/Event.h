@@ -24,21 +24,24 @@ public:
         school,
     };
 
-    std::string names[4] = {"NONE","restaurant","bank","school"}; // Maps version number to actual enun names.
+    std::string names[4] = {"NONE", "restaurant", "bank", "school"}; // Maps version number to actual enun names.
+
+    const static int names_len = 4;
 
     version ver;
 
     Event(int info, version ver)
-        :  timestamp(std::chrono::system_clock::now().time_since_epoch().count()), handled(false),   information(info), ver(ver) {}
-    
-    Event() :  timestamp(0),handled(true),information(0), ver(version::none) {}
+        : timestamp(std::chrono::system_clock::now().time_since_epoch().count()), handled(false), information(info), ver(ver) {}
+
+    Event() : timestamp(0), handled(true), information(0), ver(version::none) {}
 
     version getVersion() const
     {
         return ver;
     }
-    const std::string print(){
-        return names[static_cast<int>(ver)] + " " + std::to_string(timestamp) + " " + std::to_string(information) + " " + std::to_string(handled); 
+    const std::string print()
+    {
+        return names[static_cast<int>(ver)] + " " + std::to_string(timestamp) + " " + std::to_string(information) + " " + std::to_string(handled);
     }
     int getInfo() const
     {
@@ -58,28 +61,23 @@ private:
 
 public:
     Dispatcher() = default;
-    Dispatcher(std::unordered_map<Event::version, std::function<void(Event)>> ehandle)
-    {
-        for (auto &it : ehandle)
-        {
+    Dispatcher(std::unordered_map<Event::version, std::function<void(Event)>> ehandle) {
+        for (auto &it : ehandle) {
             registerEventHandler(it.first, it.second);
         }
     }
 
-    void registerEventHandler(Event::version eventType, const std::function<void(Event)> &handler)
-    {
+    void registerEventHandler(Event::version eventType, const std::function<void(Event)> &handler) {
         eventHandler[eventType] = handler;
     }
 
     void dispatchEvent(const Event &e)
     {
         auto handlefunc = eventHandler.find(e.getVersion());
-        if (handlefunc != eventHandler.end())
-        {
+        if (handlefunc != eventHandler.end()) {
             handlefunc->second(e);
         }
-        else
-        {
+        else {
             std::string str = "No handler found for event type: ";
             str += std::to_string(static_cast<int>(e.getVersion()));
             throw std::invalid_argument(str);
