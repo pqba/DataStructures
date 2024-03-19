@@ -46,4 +46,8 @@ $(OBJDIR)/test/Structures/dllTest.o: $(SRCDIR)/../test/Structures/dllTest.cpp
 clean:
 	@rm -rf $(OBJDIR) $(BINDIR)
 
-.PHONY: clean all
+# Debugging rule
+run_debug: debug
+	lldb $(MAIN_EXEC)
+
+.PHONY: clean all debug run_debug

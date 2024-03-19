@@ -25,6 +25,7 @@ bin/main_executable
 make clean
 ```
 In case of bugs, use ```make debug``` instead for tracing.
+If you have lldb, you can instead run ```make run_debug```
 
 ## File Structure of Project
 
