@@ -19,12 +19,12 @@ public:
     enum class version
     {
         none,
-        restaurant,
         bank,
         school,
+        restaurant,
     };
 
-    std::string names[4] = {"NONE", "restaurant", "bank", "school"}; // Maps version number to actual enun names.
+    std::string names[4] = {"NONE", "bank", "school", "restaurant"}; // Maps version number to actual enun names.
 
     const static int names_len = 4;
 
@@ -78,9 +78,9 @@ public:
             handlefunc->second(e);
         }
         else {
-            std::string str = "No handler found for event type: ";
-            str += std::to_string(static_cast<int>(e.getVersion()));
-            throw std::invalid_argument(str);
+            std::string dispatchErr = "No handler found for event type: ";
+            dispatchErr += std::to_string(static_cast<int>(e.getVersion()));
+            throw std::invalid_argument(dispatchErr);
         }
     }
 };
