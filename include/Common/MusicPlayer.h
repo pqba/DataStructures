@@ -26,7 +26,7 @@ struct Song {
 };
 
 
-// Music player implementation using DoublyLinkedList
+// Music Player implementation using DoublyLinkedList
 class MusicPlayer {
     private:
         DoublyLinkedList<Song> playlist;

@@ -3,9 +3,22 @@
 #include <vector>
 #include <stdexcept>
 #include <sstream>
+#include <limits>
 
+// Display progress bar
+std::string EH::showProgress(int original, int curr){
+    std::string s;
+    for(int i = 0; i < curr; i ++){
+       s += "#";
+    }
+    for(int i = curr; i < original; i++){
+        s += "-";
+    }
+
+    std::string percent = std::to_string(static_cast<int>((static_cast<float>(curr)/original) * 100));
+    return s + " " + percent + "%\n";
+}
 // Implementations from header file.
-
 void EH::handleRestaurant(Event e) {
     std::cout << "Restaurant," << e.getInfo() << std::endl;
     e.finish();
@@ -66,19 +79,35 @@ Event EH::parseEvent(std::string s) {
     throw std::invalid_argument("No event version found with that name.");
 }
 
-void EH::runEventHandle(){
+bool orderPriority() {
+    std::string input;
+    std::cout << "Priority order: Bank, School, Restaurant. Would you like the Events sorted by priority? (y/n): ";
+    std::cin >> input;
+    for(char &c : input){
+        c = std::tolower(c);
+    }
+    return (input == "y" || input == "yes");
+}
+
+void EH::runEventHandle() {
     Queue<Event> eventQueue;
 
     std::unordered_map<Event::version, std::function<void(Event)>> eventMap;
     eventMap[Event::version::bank] = handleBank;
     eventMap[Event::version::school] = handleSchool;
     eventMap[Event::version::restaurant] = handleRestaurant;
-
     Dispatcher disp(eventMap);
 
     std::cout << "Welcome to Event Handler.\nEvent Types: Restaurant, Bank, School, Restaurant" << std::endl;
+    
+    bool wantSort = orderPriority();
+
     while(true) {
         std::cout << "Enter event type and data in format -> integer,type and seperate events by spaces. Otherwise, enter 'Q' to quit: ";
+
+         // Clear the input buffer
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
         std::string input;
         std::getline(std::cin,input);
         std::cout << std::endl;
@@ -89,11 +118,21 @@ void EH::runEventHandle(){
             Queue<Event> newEvents = getEvents(input);
             eventQueue.extend(newEvents);
         }
+        int progress = 0;
+        int originalSize = eventQueue.size();
+
+        if(!eventQueue.isEmpty() && wantSort){
+            std::cout << "WILL ORDER()" << std::endl;
+            // TODO: sort the queue 
+        }
 
         while(!eventQueue.isEmpty()){
+            std::cout << showProgress(originalSize,progress)  << std::endl;
             Event toRemove = eventQueue.dequeue();
             disp.dispatchEvent(toRemove);
+            progress++;
         }
+        std::cout << showProgress(originalSize,progress)  << std::endl;
     }
     std::cout << "Leaving Event Handler. Goodbye!" << std::endl;
 }
