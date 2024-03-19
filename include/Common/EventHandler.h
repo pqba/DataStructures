@@ -21,4 +21,8 @@ namespace EH {
     // Takes string in format: int,eventType and transforms it into event object
     Event parseEvent(std::string s);
 
+    // Returns a progress string based on ratio to size and curr and outputs a pecent
+    std::string showProgress(int size, int curr);
+
+
 }
