@@ -23,13 +23,13 @@ std::vector<std::string> generateANSIColors(){
 }
 
 // Makes Node pointer from Song
-Node<Song> * MusicPlayer::makeNode(Song s){
-    Node<Song> * nd = new Node<Song>(s);
+DoublyLinkedNode<Song> * MusicPlayer::makeSong(Song s){
+    DoublyLinkedNode<Song> * nd = new DoublyLinkedNode<Song>(s);
     return nd;
 }
 // Adds song to end of playlist
 void MusicPlayer::addSong(Song s){
-    Node<Song> * nd = makeNode(s);
+    DoublyLinkedNode<Song> * nd = makeSong(s);
     playlist.add(nd);
 }
 // Returns playlist size.
@@ -41,7 +41,7 @@ void MusicPlayer::display(){
     if(playlist.size() == 0) return; // don't display empty playlist. Would throw error.
     int colorSize = colors.size();
     unsigned short colorCounter = 0;
-    Node<Song> * currSong = playlist.getHead();
+    DoublyLinkedNode<Song> * currSong = playlist.getHead();
     while(currSong != nullptr){ // Use display() on Song data in sequenced color fashion.
         std::cout << colors.at(colorCounter) << currSong->data.display() << RESET << std::endl;
         colorCounter++;
