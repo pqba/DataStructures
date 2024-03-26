@@ -2,6 +2,7 @@
 #include <iostream>
 // tests
 #include "../test/Structures/qTest.cpp"
+#include "../test/Structures/llTest.cpp"
 #include "../test/Structures/dllTest.cpp"
 #include "../test/Common/mTest.cpp"
 
@@ -15,16 +16,9 @@
 #include "../include/Structures/Queue.h"
 #include "../include/Structures/Data.h"
 #include "../include/Structures/DoublyLinkedList.h"
+#include "../include/Structures/LinkedList.h"
 
-/*
-MAIN.CPP File for entire project.
-Run project:
-$: make all
-$: bin/main_executable
-$: make clean
-*/
-
-void playRPN(){
+void play_RPN(){
     std::string userEquation = "";
     std::cout << "Enter Reverse Polish Notation you want evaluated:";
     getline(std::cin, userEquation);
@@ -32,26 +26,29 @@ void playRPN(){
     std::cout << "\nInitialized Equation.\nResult is: " << eq.getResult() << " " << std::endl;
 }
 
-void testDLL(){
+void test_DLL(){
     TestDLL::testDLL();
 }
 
-void testMusic(){
+void test_LL(){
+    TestLL::testLL();
+}
+void test_Music(){
     testM::testM();
 }
 
-void testQ(){
+void test_Q(){
     TestQ::testQ();
 }
 
-void testEventHandler(){
+void test_EventHandler(){
     EH::runEventHandle();
 }
 
 int main() {
     std::cout << "BEGIN MAIN()" << std::endl;
 
-    testEventHandler();
+    test_LL();
 
     std::cout << "END MAIN()" << std::endl;
     return 0;
