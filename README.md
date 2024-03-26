@@ -25,7 +25,7 @@ bin/main_executable
 make clean
 ```
 In case of bugs, use ```make debug``` instead for tracing.
-If you have lldb, you can instead run ```make run_debug```
+If you have lldb, instead run ```make run_debug```
 
 ## File Structure of Project
 
@@ -71,6 +71,7 @@ Project Structure:
     │   └── mTest.cpp
     └── Structures
         ├── dllTest.cpp
+        ├── llTest.cpp
         └── qTest.cpp
 ```
 
