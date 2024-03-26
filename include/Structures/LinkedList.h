@@ -44,6 +44,8 @@ class LinkedList {
         int find(Node *);
         void set(Node *, int);
 
+        void reverse();
+
         void checkIndex(std::string,int);
 
         std::string print();

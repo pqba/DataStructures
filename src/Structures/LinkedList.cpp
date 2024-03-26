@@ -182,6 +182,18 @@ void LinkedList::set(Node * item, int index){
     delete toSet; // must be removed.
 }
 
+void LinkedList::reverse() {
+    Node * prev = nullptr;
+    Node * curr = head;
+    Node * next;
+    while(curr != nullptr) {
+        next = curr->link;
+        curr->link = prev;
+        prev = curr;
+        curr = next;
+    }
+    head = prev;
+}
 // Returns string representation of singly linked list.
 std::string LinkedList::print() {
     Node * top = head;
