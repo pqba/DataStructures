@@ -25,9 +25,9 @@ DoublyLinkedList<T>::~DoublyLinkedList(){
 // Clears entire list
 template<class T>
 void DoublyLinkedList<T>::clear(){
-    Node<T> * curr = head;
+    DoublyLinkedNode<T> * curr = head;
     while(curr != nullptr){
-        Node<T> * nxt = curr->next;
+        DoublyLinkedNode<T> * nxt = curr->next;
         delete curr;
         curr = nxt;
     }
@@ -38,7 +38,7 @@ void DoublyLinkedList<T>::clear(){
 template<class T>
 int DoublyLinkedList<T>::size(){
     int len = 0;
-    Node<T> * curr = head;
+    DoublyLinkedNode<T> * curr = head;
     while(curr != nullptr){
         curr = curr->next;
         len++;
@@ -51,17 +51,17 @@ bool DoublyLinkedList<T>::isEmpty(){
     return head == nullptr;
 }
 
-// Removes first ordered occurence of Node (same data), if found.
+// Removes first ordered occurence of DoublyLinkedNode (same data), if found.
 template<class T>
-void DoublyLinkedList<T>::remove(Node<T> * nd){
+void DoublyLinkedList<T>::remove(DoublyLinkedNode<T> * nd){
     if(nd == nullptr) { // invalid case.
         return;
     }
-    Node<T> * curr = head; 
+    DoublyLinkedNode<T> * curr = head; 
     while(curr != nullptr) {
         if(curr == nd) { // T must have == operator
-            Node<T> * after = curr->next;
-            Node<T>  * before = curr->prev;
+            DoublyLinkedNode<T> * after = curr->next;
+            DoublyLinkedNode<T>  * before = curr->prev;
             if(before != nullptr){
                 if(after != nullptr){
                     before->next = after;
@@ -88,11 +88,11 @@ void DoublyLinkedList<T>::remove(Node<T> * nd){
         curr = curr->next;
     }   
 }
-// Removes Node at index, throws error if out of range
+// Removes DoublyLinkedNode at index, throws error if out of range
 template<class T>
 void DoublyLinkedList<T>::remove(int remove_idx){
     checkIndex("Index out of bounds for removal",remove_idx);
-    Node<T> * curr = head; 
+    DoublyLinkedNode<T> * curr = head; 
     int currentIdx = 0;
     while(currentIdx != remove_idx){
         curr = curr->next;
@@ -100,10 +100,10 @@ void DoublyLinkedList<T>::remove(int remove_idx){
     }
     // prev -> <-after
     if(curr->prev != nullptr){
-        Node<T> * previous = curr->prev;
+        DoublyLinkedNode<T> * previous = curr->prev;
         previous->next = curr->next;
         if(curr->next != nullptr){
-            Node<T> * after = curr->next;
+            DoublyLinkedNode<T> * after = curr->next;
             after->prev = previous;
         }
         else { // we are at tail
@@ -121,9 +121,9 @@ void DoublyLinkedList<T>::remove(int remove_idx){
     }
     delete curr;
 }
-// Adds Node to end of list
+// Adds DoublyLinkedNode to end of list
 template<class T>
-void DoublyLinkedList<T>::add(Node<T> * nd){
+void DoublyLinkedList<T>::add(DoublyLinkedNode<T> * nd){
     if(head == nullptr){
         head = nd;
         head->prev = nullptr;
@@ -138,14 +138,14 @@ void DoublyLinkedList<T>::add(Node<T> * nd){
         tail = nd;
     }
 }
-// Adds node to doubly linked list after the specified index at (0 -> size() - 1)
+// Adds DoublyLinkedNode to doubly linked list after the specified index at (0 -> size() - 1)
 // TODO: Fix.
 template<class T>
-void DoublyLinkedList<T>::add(Node<T> * nd, int ind){
+void DoublyLinkedList<T>::add(DoublyLinkedNode<T> * nd, int ind){
     checkIndex("Invalid index to add. ",ind);
     int len = size();
     int counter = 0;
-    Node<T> * curr = head; 
+    DoublyLinkedNode<T> * curr = head; 
     if(ind == 0) {     // At head?
         if(len == 0) {
             nd->prev = nd->next = nullptr;
@@ -185,8 +185,8 @@ void DoublyLinkedList<T>::add(Node<T> * nd, int ind){
 // Reverses the doubly linked list. Unfinished.
 template <class T>
 void DoublyLinkedList<T>::reverse(){
-  Node<T> * tmp = nullptr;
-  Node<T> * curr = head;
+  DoublyLinkedNode<T> * tmp = nullptr;
+  DoublyLinkedNode<T> * curr = head;
   tail = head;
   if(head != nullptr){
     tail->prev = head->next;
@@ -201,32 +201,32 @@ void DoublyLinkedList<T>::reverse(){
     head = tmp->prev;
   }
 }
-// Returns Node at Head
+// Returns DoublyLinkedNode at Head
 template <class T>
-Node<T> * DoublyLinkedList<T>::getHead(){
+DoublyLinkedNode<T> * DoublyLinkedList<T>::getHead(){
     if(head != nullptr){
         return head;
     }
     throw std::invalid_argument("No list head to get.");
 }
-// Returns Node at specified index
+// Returns DoublyLinkedNode at specified index
 template <class T>
-Node<T> * DoublyLinkedList<T>::get(int ind){
+DoublyLinkedNode<T> * DoublyLinkedList<T>::get(int ind){
     checkIndex("Invalid index to get",ind);
-    Node<T> * curr = head;
+    DoublyLinkedNode<T> * curr = head;
     for(int i = 0; i<ind ;i++){
         curr = curr->next;
     }
     return curr;
 }
-// Searches for Node in list, returns index if found, -1 otherwise.
+// Searches for DoublyLinkedNode in list, returns index if found, -1 otherwise.
 template<class T>
-int DoublyLinkedList<T>::find(Node <T> * nd) {
+int DoublyLinkedList<T>::find(DoublyLinkedNode <T> * nd) {
     // Implementing a bidirectional search
     int ind_head = 0;
     int ind_tail = size() - 1;
-    Node<T> * curr_front = head;
-    Node<T> * curr_back = tail;
+    DoublyLinkedNode<T> * curr_front = head;
+    DoublyLinkedNode<T> * curr_back = tail;
     while(curr_back != nullptr || curr_front !=nullptr) {
         if(curr_front == nd){
             return ind_head;
@@ -245,9 +245,9 @@ int DoublyLinkedList<T>::find(Node <T> * nd) {
     }
     return -1;
 }
-// Sets Node at specific index to inputted data
+// Sets DoublyLinkedNode at specific index to inputted data
 template<class T>
-void DoublyLinkedList<T>::set(Node<T> * nd, int ind){
+void DoublyLinkedList<T>::set(DoublyLinkedNode<T> * nd, int ind){
     checkIndex("Invalid index to set.",ind);
     if(ind == 0){
         nd->prev = nullptr;
@@ -260,7 +260,7 @@ void DoublyLinkedList<T>::set(Node<T> * nd, int ind){
         tail = nd;
     }
     else { //somewhere inside list
-        Node<T> * curr = head;
+        DoublyLinkedNode<T> * curr = head;
         for(int i = 0; i < ind; i++){
             curr = curr->next;
         }

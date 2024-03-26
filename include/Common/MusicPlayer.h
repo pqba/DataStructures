@@ -37,7 +37,7 @@ class MusicPlayer {
         ~MusicPlayer(){
             playlist.clear();
         }
-        Node<Song> * makeNode(Song s);
+        DoublyLinkedNode<Song> * makeSong(Song s);
 
         int playlistSize();
         

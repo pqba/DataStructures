@@ -11,13 +11,13 @@ namespace TestDLL
         DoublyLinkedList<int> list;
         for (int a = 0; a < amt_items; a++)
         {
-            Node<int> *nd = new Node<int>(a * 5);
+            DoublyLinkedNode<int> *nd = new DoublyLinkedNode<int>(a * 5);
             list.add(nd);
         }
         int len = list.size();
         for (int r = (amt_items - 1) / 2; r >= 0; r--)
         {
-            Node<int> *notinlist = new Node<int>(r * 15);
+            DoublyLinkedNode<int> *notinlist = new DoublyLinkedNode<int>(r * 15);
             list.remove(r);
             list.set(notinlist, r);
         }
