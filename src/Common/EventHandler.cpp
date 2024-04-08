@@ -98,10 +98,6 @@ void EH::runEventHandle() {
     eventMap[Event::version::restaurant] = handleRestaurant;
     Dispatcher disp(eventMap);
 
-    std::cout << "Welcome to Event Handler.\nEvent Types: Restaurant, Bank, School, Restaurant" << std::endl;
-    
-    bool wantSort = orderPriority();
-
     while(true) {
         std::cout << "Enter event type and data in format -> integer,type and seperate events by spaces. Otherwise, enter 'Q' to quit: ";
 
@@ -120,11 +116,6 @@ void EH::runEventHandle() {
         }
         int progress = 0;
         int originalSize = eventQueue.size();
-
-        if(!eventQueue.isEmpty() && wantSort){
-            std::cout << "WILL ORDER()" << std::endl;
-            // TODO: sort the queue 
-        }
 
         while(!eventQueue.isEmpty()){
             std::cout << showProgress(originalSize,progress)  << std::endl;
