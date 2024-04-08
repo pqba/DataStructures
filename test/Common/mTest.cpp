@@ -24,5 +24,6 @@ namespace testM {
     Song q = {"House of the Rising Sun","The Animals",hors_art,269};
     m.addSong(s); m.addSong(b); m.addSong(q);
     m.display();
+    m.buildPlaylist();
     }
 }

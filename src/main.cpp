@@ -48,7 +48,7 @@ void test_EventHandler(){
 int main() {
     std::cout << "BEGIN MAIN()" << std::endl;
 
-    test_LL();
+    test_Music();
 
     std::cout << "END MAIN()" << std::endl;
     return 0;
