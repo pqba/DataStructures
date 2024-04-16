@@ -21,6 +21,7 @@ class RPN
 private:
     Stack notator;
     int result;
+    std::string inputEquation;
 
 public:
     // Member initializer list
@@ -29,6 +30,7 @@ public:
         parseEq(s);
         notator.stack_name_output();
         result = atoi(notator.stack_peek().getName().c_str());
+        inputEquation = s;
     }
     ~RPN()
     {
@@ -62,12 +64,33 @@ public:
             throw std::invalid_argument("Not a valid operator");
         }
     }
-    // To implement. Outputs algebraic interpretation of eq.
-    void describeAlgebraic(std::string eq)
+    bool isOp(std::string s){
+        return (s == "+" || s == "-" || s == "*" || s == "/");
+    }
+    // Outputs algebraic interpretation of equation, converts postfix to infix
+    std::string describeAlgebraic(std::string eq)
     {
-        for(int i = 0; i < (int)eq.length();i++){
-            std::cout << "unfinished" << std::endl;
+        Stack algebraic(1);
+        std::stringstream ss(eq);
+        while (ss.good()) {
+            std::string expr;
+            getline(ss,expr,' ');
+            if(isANumber(expr)){
+                algebraic.stack_push(Data(1,1,expr));
             }
+            else if (isOp(expr)) {
+                std::string first = algebraic.stack_peek().getName();
+                algebraic.stack_pop();
+                std::string second = algebraic.stack_peek().getName();
+                algebraic.stack_pop();
+                std::string combined = "(" + second + " " + expr + " " + first + ")";
+                algebraic.stack_push(Data(1,1,combined));
+            }
+            else {
+                throw std::invalid_argument("Cannot parse to algebraic, incorrect RPN notation.");
+            }
+        }
+        return algebraic.stack_peek().getName();
     }
     /*
     Parses input, initializes notator Stack
@@ -97,7 +120,6 @@ public:
         //  std::cout << notator.stack_name_output() << std::endl;
         if (!isANumber(value))
         {
-            std::cout << "OPERATOR: " << value << "\t";
             // eval operator
             std::string op_represent = notator.stack_pop().getName();
             char op = evalOperator(op_represent);
@@ -115,7 +137,7 @@ public:
                 {
                     int num = atoi(N.c_str());
                     orands.insert(orands.begin(), num);
-                    std::cout << num << "\t";
+                 //   std::cout << num << "\t";
                 }
                 else
                 {
@@ -128,12 +150,11 @@ public:
             for (int i = 0; i < (int)orands.size() - 1; i++)
             {
                 int calc = operate(op, orands[i], orands[i + 1]);
-                printf("%d %c %d = %d ", orands[i], op, orands[i + 1], calc);
+                // printf("%d %c %d = %d ", orands[i], op, orands[i + 1], calc);
                 orands[i + 1] = calc;
                 total = orands[i + 1];
             }
             notator.stack_push(Data(0, 0, std::to_string(total)));
-            std::cout << std::endl;
         }
     }
 
@@ -175,6 +196,7 @@ public:
             if (!isdigit(s[i]))
             {
                 isNumerical = false;
+                break;
             }
         }
         return isNumerical;
@@ -182,5 +204,8 @@ public:
     int getResult()
     {
         return result;
+    }
+    std::string getInputEquation(){
+        return inputEquation;
     }
 };

@@ -20,10 +20,11 @@
 
 void play_RPN(){
     std::string userEquation = "";
-    std::cout << "Enter Reverse Polish Notation you want evaluated:";
+    std::cout << "Enter Reverse Polish Notation you want evaluated: ";
     getline(std::cin, userEquation);
     RPN eq(userEquation);
-    std::cout << "\nInitialized Equation.\nResult is: " << eq.getResult() << " " << std::endl;
+    std::cout << "Initialized Equation.\nResult is: " << eq.getResult() << "\n";
+    std::cout << "Algebraic: " << eq.describeAlgebraic(userEquation) <<  " = " << eq.getResult() << "\n";
 }
 
 void test_DLL(){
@@ -48,7 +49,7 @@ void test_EventHandler(){
 int main() {
     std::cout << "BEGIN MAIN()" << std::endl;
 
-    test_Music();
+    play_RPN();
 
     std::cout << "END MAIN()" << std::endl;
     return 0;
