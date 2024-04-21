@@ -2,7 +2,7 @@
 #define BINTREE_H
 #include <string>
 
-// Node structure for Binary Search Tree. Must implement == on template class data.
+// Node structure for Binary Search Tree. Must implement == on template class data as well as a < or >.
 template <class T>
 struct BTNode
 {
@@ -30,12 +30,17 @@ private:
 public:
     BinTree();
     ~BinTree();
-    void insert(BTNode<T>);
+
+    void insert(T);
     void remove(BTNode<T>);
+
     void destroyRecursive(BTNode<T>);
     void clear();
-    void get(<T>);
+
+    bool exists(BTNode<T>,T);
+    void get(BTNode<T>);
     int size();
+
     std::string outputTree();
 };
 
