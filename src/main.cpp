@@ -17,6 +17,7 @@
 #include "../include/Structures/Data.h"
 #include "../include/Structures/DoublyLinkedList.h"
 #include "../include/Structures/LinkedList.h"
+#include "../include/Structures/BinTree.h"
 
 void play_RPN(){
     std::string userEquation = "";
@@ -49,7 +50,12 @@ void test_EventHandler(){
 int main() {
     std::cout << "BEGIN MAIN()" << std::endl;
 
-    play_RPN();
+    BinTree<Data> bt;
+    bt.insert(Data(5,1,"bruh"));
+    bt.insert(Data(6,7,"fjsdfhlsdkfjh"));
+    bt.insert(Data(1,0,"e"));
+    std::cout << bt.inOrder() <<"\n";
+    std::cout << bt.size() << "\n";
 
     std::cout << "END MAIN()" << std::endl;
     return 0;
