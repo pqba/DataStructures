@@ -19,18 +19,22 @@ A project aimed at learning, implementing, and demonstrating various data struct
 - Event Handler System: Manage and handle events efficiently.
 
 ## Usage
+> This project uses CMake, Install [Here]([https://cmake.org/download/])
 
-1. Compile the project using `make all`.
-2. Run the main executable with `bin/main_executable`.
-3. Clean up object and binary files with `make clean`.
-4. For debugging, use `make debug` for tracing or `make run_debug` with [lldb](https://lldb.llvm.org/).
+### Build Project
+1. Execute `$: cmake .. && cmake --build .`  in **build/** subdirectory
+2. After project is built, simply use **make** command.
+2. Execute binary with `$: build/bin/main_executable`.
+### Run Configurations
+* Execute in debug mode using `$: cmake -DCMAKE_BUILD_TYPE=Debug .. && cmake --build .` in **build/** subdirectory
+    * Use lldb or other debug tools as necessary with generated binary
+* Clean up binary and other generated files while in **build/** using `$: make clean_all`.
 
 ## File Structure
 
 - **src/**: Source code `.cpp` files for data structures and common features.
 - **include/**: Header files `.h` files for declaring classes and functions.
-- **bin/**: Binary executable files.
-- **obj/**: Object files generated during compilation.
+- **build/**: CMake project build folder
 - **test/**: Test files for verifying data structure implementations.
 
 ## License
