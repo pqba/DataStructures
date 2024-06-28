@@ -19,7 +19,7 @@ A project aimed at learning, implementing, and demonstrating various data struct
 - Event Handler System: Manage and handle events efficiently.
 
 ## Usage
-> This project uses CMake, Install [Here]([https://cmake.org/download/])
+> This project uses CMake, Install [Here](https://cmake.org/download/)
 
 ### Build Project
 1. Execute `$: cmake .. && cmake --build .`  in **build/** subdirectory
