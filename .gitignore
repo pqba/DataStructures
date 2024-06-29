@@ -1,8 +1,13 @@
-# Ignore the entire .vscode directory
+# Ignore the IDE directories
 .vscode/
+.idea/
 # Ignore all executable files
 *.exe
+*.out
+*.app
 # Ignore all object files
 *.o
 # Ignore binaries in the bin/ directory (and any subdirectories)
 bin/
+# Ignore CMake build files
+build/
