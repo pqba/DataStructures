@@ -22,7 +22,7 @@ A project aimed at learning, implementing, and demonstrating various data struct
 > This project uses CMake, Install [Here](https://cmake.org/download/)
 
 ### Build Project
-1. Execute `$: cmake .. && cmake --build .`  in **build/** subdirectory
+1. Execute `$: cmake ../ -B .`  in **build/** subdirectory
 2. After project is built, simply use **make** command.
 2. Execute binary with `$: build/bin/main_executable`.
 ### Run Configurations

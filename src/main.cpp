@@ -2,13 +2,15 @@
 #include <iostream>
 #include <random>
 // tests
+#include "../test/Structures/dataTest.cpp"
 #include "../test/Structures/qTest.cpp"
 #include "../test/Structures/llTest.cpp"
 #include "../test/Structures/dllTest.cpp"
+#include "../test/Structures/btTest.cpp"
 #include "../test/Common/mTest.cpp"
 
 // Common
-#include "Common/RPN.cpp" //technically bad practice.
+#include "Common/RPN.cpp" 
 #include "../include/Common/MusicPlayer.h"
 #include "../include/Common/Event.h"
 #include "../include/Common/EventHandler.h"
@@ -29,6 +31,9 @@ void play_RPN(){
     std::cout << "Algebraic: " << eq.describeAlgebraic(userEquation) <<  " = " << eq.getResult() << "\n";
 }
 
+void test_Data(){
+    testData::testD();
+}
 void test_DLL(){
     TestDLL::testDLL();
 }
@@ -48,23 +53,13 @@ void test_EventHandler(){
     EH::runEventHandle();
 }
 
+void test_BT(){
+    BT::testBT();
+}
 int main() {
     std::cout << "BEGIN MAIN()" << std::endl;
-
-    BinTree<Data> bt;
-    for(int i = 1; i < 15; i++){
-        Data d = Data(rand() % (i+5),i,"D");
-        bt.insert(d);
-        Data e = Data(rand() % (i),i,"E");
-        bt.insert(e);
-        bt.display("",bt.getRoot(),false);
-        if(rand() % 10 <= 4){
-            bt.remove(d);
-        }
-        if(rand() % 10 <= 4){
-            bt.remove(e);
-        }
-    }
+    test_Data();
+    test_BT();
     std::cout << "END MAIN()" << std::endl;
     return 0;
 }
