@@ -18,7 +18,7 @@ class Data
 {
     public:
         internal description;
-
+        double TOLERANCE = 1e-6;
         Data();
         Data(int i, float f, std::string N);
         ~Data();
@@ -27,11 +27,16 @@ class Data
         bool operator>(const Data&);
         bool operator<(const Data&);
 
-        internal getData();
-        int getID();
-        float getConstant();
+        internal getData() const;
+        int getID() const;
+        float getConstant() const;
+        std::string getName() const;
 
-        std::string getName();
+        void setData(internal);
+        void setID(int);
+        void setConstant(float);
+        void setName(std::string);
+
         const std::string print();
 };
 
