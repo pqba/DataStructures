@@ -10,6 +10,7 @@ struct BTNode
     BTNode<T> *left;
     BTNode<T> *right;
     T val;
+    int height;
     BTNode(T data)
     {
         left = nullptr;
