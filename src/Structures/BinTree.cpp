@@ -188,10 +188,10 @@ void BinTree<T>::display(const std::string&prefix, BTNode<T>*nd,bool isLeft ) co
         return;
     }
     std::cout << prefix;
-    std::cout << (isLeft ? "├──" : "└──");
+    std::cout << (isLeft ? "|--" : "\\--");
     std::cout << nd->val.print() << "\n";
-    display( prefix + (isLeft ? "│   " : "    "), nd->left, true);
-    display( prefix + (isLeft ? "│   " : "    "), nd->right, false);
+    display( prefix + (isLeft ? "|   " : "    "), nd->left, true);
+    display( prefix + (isLeft ? "|   " : "    "), nd->right, false);
 }
 
 // Return number of nodes in given subtree

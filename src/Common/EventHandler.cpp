@@ -5,6 +5,18 @@
 #include <sstream>
 #include <limits>
 
+bool compareStrings(const std::string& v_nm, const std::string& eventName) {
+  if (v_nm.length() != eventName.length()) {
+    return false;
+  }
+  for (size_t i = 0; i < v_nm.length(); ++i) {
+    if (tolower(v_nm[i]) != tolower(eventName[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
 // Display progress bar
 std::string EH::showProgress(int original, int curr){
     std::string s;
@@ -50,8 +62,8 @@ Event EH::parseEvent(std::string s) {
     if(s == "" || s.length() < 3){
         throw std::invalid_argument("Length of string too small.");
     }
-    if(s.find(',') == std::string::npos || std::count(s.begin(),s.end(),',') != 1){
-        throw std::invalid_argument("Unacceptable data format. Incorrect amount of commas.");
+    if (s.find(',') == std::string::npos || (s.find(',') != s.rfind(','))) {
+    throw std::invalid_argument("Unacceptable data format. Incorrect amount of commas.");
     }
     std::string number = s.substr(0,s.find(','));
     // Number checking.
@@ -70,7 +82,7 @@ Event EH::parseEvent(std::string s) {
     Event e;
     for(int i = 0; i <  Event::names_len; i++){
         std::string v_nm = e.names[i];
-        if(strcasecmp(v_nm.c_str(),eventName.c_str()) == 0) {
+        if(compareStrings(v_nm,eventName)) {
             // Sucessful!
             Event created = Event(N,static_cast<Event::version>(i));
             return created;
@@ -107,7 +119,7 @@ void EH::runEventHandle() {
         std::string input;
         std::getline(std::cin,input);
         std::cout << std::endl;
-        if(strcasecmp(input.c_str(),"Q") == 0){
+        if(compareStrings(input,"Q")){
             break;
         }
         if(!input.empty()){

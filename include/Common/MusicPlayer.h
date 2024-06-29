@@ -10,8 +10,8 @@ struct Song {
     std::string title;
     std::string musician;
     std::string albumCover;
-    int32_t length;
-    Song(std::string t,std::string mus,std::string ac,int32_t len) {
+    int length;
+    Song(std::string t,std::string mus,std::string ac,int len) {
         title = t; musician = mus; length = len; albumCover = ac;
     }
     ~Song(){
@@ -19,8 +19,8 @@ struct Song {
         length = 0;
     }
     std::string songLength() const {
-        int32_t minutes = length % 60;
-        int32_t seconds = length / 60;
+        int minutes = length % 60;
+        int seconds = length / 60;
         std::string minString = std::to_string(minutes);
         std::string secString = std::to_string(seconds); 
         if(minutes < 10){
