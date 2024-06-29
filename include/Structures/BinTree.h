@@ -1,6 +1,7 @@
 #ifndef BINTREE_H
 #define BINTREE_H
 #include <string>
+#include <iostream>
 
 // Node structure for Binary Search Tree. Must implement == on template class data as well as a < or > and a print() function
 template <class T>
@@ -31,24 +32,26 @@ public:
     BinTree();
     ~BinTree();
 
+    BTNode<T>* getRoot();
+
     void insert(T);
     BTNode<T>* insertSubtree(BTNode<T>*,T);
-    void remove(BTNode<T>*,T);
+    void remove(T);
 
     void destroyRecur(BTNode<T>*);
     void clear();
 
     bool existsRecur(BTNode<T>*,T);
     bool existsIter(BTNode<T>*,T);
-    void get(BTNode<T>);
+    BTNode<T>* get(BTNode<T>*,T);
+    BTNode<T>* getParent(BTNode<T>*,T);
     int subtreeSize(BTNode<T>*);
     int size();
 
-
     std::string inOrder();
     std::string inOrderSubtree(BTNode<T>*,std::string);
-    std::string outputTree();
-    std::string postOrder(BTNode<T>*,std::string current);
+    std::string postOrderSubtree(BTNode<T>*,std::string current);
+    void display(const std::string&p,BTNode<T>*n,bool l) const;
 };
 
 #endif

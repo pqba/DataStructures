@@ -1,5 +1,6 @@
 // basic utils
 #include <iostream>
+#include <random>
 // tests
 #include "../test/Structures/qTest.cpp"
 #include "../test/Structures/llTest.cpp"
@@ -51,12 +52,19 @@ int main() {
     std::cout << "BEGIN MAIN()" << std::endl;
 
     BinTree<Data> bt;
-    bt.insert(Data(5,1,"bruh"));
-    bt.insert(Data(6,7,"fjsdfhlsdkfjh"));
-    bt.insert(Data(1,0,"e"));
-    std::cout << bt.inOrder() <<"\n";
-    std::cout << bt.size() << "\n";
-
+    for(int i = 1; i < 15; i++){
+        Data d = Data(rand() % (i+5),i,"D");
+        bt.insert(d);
+        Data e = Data(rand() % (i),i,"E");
+        bt.insert(e);
+        bt.display("",bt.getRoot(),false);
+        if(rand() % 10 <= 4){
+            bt.remove(d);
+        }
+        if(rand() % 10 <= 4){
+            bt.remove(e);
+        }
+    }
     std::cout << "END MAIN()" << std::endl;
     return 0;
 }

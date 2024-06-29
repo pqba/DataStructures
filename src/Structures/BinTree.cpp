@@ -13,6 +13,12 @@ BinTree<T>::~BinTree(){
     clear();
 }
 
+// Returns root of binary tree, by reference
+template<class T>
+BTNode<T>* BinTree<T>::getRoot(){
+    return root;
+}
+
 // Clears the entire tree's allocated memory
 template <class T>
 void BinTree<T>::clear(){
@@ -38,7 +44,7 @@ bool BinTree<T>::existsRecur(BTNode<T>* nd,T key) {
         return true;
     }
     else if(nd->val < key){
-        return existsRecur(root->right,key);
+        return existsRecur(nd->right,key);
     }
     else { 
         return existsRecur(nd->left,key);
@@ -80,16 +86,83 @@ BTNode<T>* BinTree<T>::insertSubtree(BTNode<T>* parent,T value) {
     }
     return parent;
 }
-// Removes node from key, does nothing if node doesn't exist in tree.
+
 template <class T>
-void BinTree<T>::remove(BTNode<T>* nd,T val){
-    if(nd == nullptr || !existsRecur(root,nd->val)) {
+BTNode<T>* BinTree<T>::get(BTNode<T>*node,T item){
+    if(!existsRecur(root,item) || node == nullptr) {
+        return nullptr;
+    }
+    if(node->val == item){
+        return node;
+    }
+    return node->val < item ? get(node->right,item) : get(node->left,item);
+}
+template <class T>
+BTNode<T>* BinTree<T>::getParent(BTNode<T>*node, T item) {
+    if (!existsRecur(root, item) || node == nullptr) {
+        return nullptr;
+    }
+    if ((node->left && node->left->val == item) || (node->right && node->right->val == item)) {
+        return node;
+    }
+    return node->val < item ? getParent(node->right, item) : getParent(node->left, item);
+}
+
+// Removes node from tree, does nothing if node doesn't exist
+template <class T>
+void BinTree<T>::remove(T item) {
+    if (!existsRecur(root, item)) {
         return;
     }
-    if(nd){
-
+    BTNode<T>* request = get(root, item);
+    if (request == nullptr) {
+        return;
     }
+    BTNode<T>* parent = getParent(root, item);
     
+    // Case 0: No children
+    if (request->left == nullptr && request->right == nullptr) {
+        if (parent == nullptr)
+            root = nullptr;
+        else if (parent->left == request)
+            parent->left = nullptr;
+        else
+            parent->right = nullptr;
+        delete request;
+    }
+    // Case 2: Both children exist
+    else if (request->left && request->right) {
+        BTNode<T>* scsr = request->left;
+        BTNode<T>* scsrParent = request; // Track parent of the successor
+        while (scsr->right != nullptr) {
+            scsrParent = scsr;
+            scsr = scsr->right;
+        }
+        T temp = request->val;
+        request->val = scsr->val;
+        scsr->val = temp;
+        
+        // Update parent's pointer to successor node
+        if (scsrParent->left == scsr) {
+            scsrParent->left = scsr->left;
+        } else {
+            scsrParent->right = scsr->left;
+        }
+        delete scsr;
+    }
+    // Case 1: One child exists
+    else {
+        BTNode<T>* child = (request->left) ? request->left : request->right;
+
+        if (parent == nullptr)
+            root = child;
+        else if (parent->left == request)
+            parent->left = child;
+        else
+            parent->right = child;
+
+        delete request;
+    }
 }
 // Returns in order traversal of entire tree
 template <class T>
@@ -108,6 +181,19 @@ std::string BinTree<T>::inOrderSubtree(BTNode<T>* nd,std::string current){
     }
     return "";
 }
+// Prints string visualization of tree
+template <class T>
+void BinTree<T>::display(const std::string&prefix, BTNode<T>*nd,bool isLeft ) const  {
+    if(nd == nullptr){
+        return;
+    }
+    std::cout << prefix;
+    std::cout << (isLeft ? "├──" : "└──");
+    std::cout << nd->val.print() << "\n";
+    display( prefix + (isLeft ? "│   " : "    "), nd->left, true);
+    display( prefix + (isLeft ? "│   " : "    "), nd->right, false);
+}
+
 // Return number of nodes in given subtree
 template <class T>
 int BinTree<T>::subtreeSize(BTNode<T>* nd){
