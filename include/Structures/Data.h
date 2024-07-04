@@ -37,7 +37,7 @@ class Data
         void setConstant(float);
         void setName(std::string);
 
-        const std::string print();
+        const std::string print() const;
 };
 
 #endif

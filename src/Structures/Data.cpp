@@ -80,7 +80,7 @@ void  Data::setName(std::string nm){
 }
 
 // Return ch array of id, constant, and name
-const std::string Data::print() 
+const std::string Data::print() const
 {
     std::string idStr = std::to_string(getID()) + "-";
     std::string constantStr =  std::to_string(getConstant()) + "-";
