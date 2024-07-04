@@ -26,10 +26,22 @@ namespace BT
         for(int i = 1; i < 20; i++){
             bt2.insert(i);
             bt2.insert(i-5);
-            bt2.display("",bt2.getRoot(),false);
-
         }
         std::cout << bt2.size() << "\n";
-        std::cout << bt2.inOrder() << "\n";
+        std::cout << bt2.maxDepth() << "\n";
+        std::cout << bt2.postOrder() << "\n";
+        
+        BinTree<int> bt3;
+        bt3.insert(5);
+        bt3.insert(4);
+        bt3.insert(8);
+        bt3.insert(13);
+        bt3.insert(11);
+        bt3.insert(7);
+        bt3.insert(3);
+        bt3.insert(1);
+        bt3.display("",bt3.getRoot(),false);
+        bt3.mirror(bt3.getRoot());
+        bt3.display("",bt3.getRoot(),false);
     }
 }

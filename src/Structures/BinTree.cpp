@@ -164,6 +164,32 @@ void BinTree<T>::remove(T item) {
         delete node;
     }
 }
+// Outputs all traversal paths of tree to console
+template <class T>
+void BinTree<T>::paths(BTNode<T>*node,const std::string s){
+    BTNode<T>* l = nullptr;
+    BTNode<T>* r = nullptr;
+    if(node){
+        l = node->left; r = node->right;
+        std::string pth = s + " " + node->print();
+        if(l == nullptr && r == nullptr){
+            std::cout << pth << '\n';
+        }
+        paths(r,pth);
+        paths(l,pth);
+    }
+}
+// Mirror's the binary tree, NOTE: removes the BST property
+template <class T>
+void BinTree<T>::mirror(BTNode<T>*nd){
+    if(nd){
+        BTNode<T>* temp = nd->left;
+        nd->left = nd->right;
+        nd->right = temp;
+        mirror(nd->left);
+        mirror(nd->right);
+    }
+}
 // Returns in order traversal of entire tree
 template <class T>
 std::string BinTree<T>::inOrder(){
@@ -177,6 +203,20 @@ std::string BinTree<T>::inOrderSubtree(BTNode<T>* nd,std::string current){
         current += inOrderSubtree(nd->left,"");
         current += " " + nd->print() + " ";
         current += inOrderSubtree(nd->right,"");
+        return current;
+    }
+    return "";
+}
+template <class T>
+std::string BinTree<T>::postOrder(){
+    return postOrderSubtree(root,"");
+}
+template <class T>
+std::string BinTree<T>::postOrderSubtree(BTNode<T>*nd,std::string current) {
+    if(nd){ 
+        current += postOrderSubtree(nd->right,"");
+        current += " " + nd->print() + " ";
+        current += postOrderSubtree(nd->left,"");
         return current;
     }
     return "";
@@ -208,7 +248,24 @@ int BinTree<T>::size(){
     return subtreeSize(root);
 }
 
+template <class T>
+int BinTree<T>::maxDepth(){
+    return maxSubtreeDepth(root);   
+}
+template <class T>
+int BinTree<T>::maxSubtreeDepth(BTNode<T>*nd){
+    if(nd){
+        int ld = maxSubtreeDepth(nd->left);
+        int rd = maxSubtreeDepth(nd->right);
+        if(ld >= rd){
+            return 1 + ld;
+        }
+        return 1 + rd;
+    }  
+    return 0;
+}
 // Explicit instantiations
 template class BinTree<Data>;
 template class BinTree<int>;
 template class BinTree<float>;
+template class BinTree<long>;

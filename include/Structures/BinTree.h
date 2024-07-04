@@ -63,12 +63,18 @@ public:
     bool existsIter(BTNode<T>*,T);
     BTNode<T>* get(BTNode<T>*,T);
     BTNode<T>* getParent(BTNode<T>*,T);
+
     int subtreeSize(BTNode<T>*);
     int size();
+    int maxDepth();
+    int maxSubtreeDepth(BTNode<T>*);
 
+    void paths(BTNode<T>*,const std::string);
+    void mirror(BTNode<T>*);
     std::string inOrder();
     std::string inOrderSubtree(BTNode<T>*,std::string);
-    std::string postOrderSubtree(BTNode<T>*,std::string current);
+    std::string postOrder();
+    std::string postOrderSubtree(BTNode<T>*,std::string);
     void display(const std::string&p,BTNode<T>*n,bool l) const;
 };
 
