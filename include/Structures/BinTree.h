@@ -2,8 +2,9 @@
 #define BINTREE_H
 #include <string>
 #include <iostream>
+#include <type_traits>
 
-// Node structure for Binary Search Tree. Must implement == on template class data as well as a < or > and a print() function
+// Node structure for Binary Search Tree. Must implement == on template class data as well as a < or > and a print() function if non-integral type
 template <class T>
 struct BTNode
 {
@@ -21,6 +22,22 @@ struct BTNode
     {
         return this->val == other->val;
     }
+    // Printing for nodes, infers types
+    std::string print() const {
+        return print_impl(val); 
+    }
+    private:
+        // Using SFINAE for std::string, fundamental, and clases: https://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error
+        template <typename U>
+        std::enable_if_t<!std::is_fundamental<U>::value,std::string>
+        print_impl(const U& val) const {
+            return val.print();
+        }
+        template <typename U>
+        std::enable_if_t<std::is_fundamental<U>::value,std::string>
+        print_impl(const U& val) const {
+            return std::to_string(val);
+        }
 };
 
 // Binary Tree Class

@@ -58,7 +58,6 @@ void test_BT(){
 }
 int main() {
     std::cout << "BEGIN MAIN()" << std::endl;
-    test_Data();
     test_BT();
     std::cout << "END MAIN()" << std::endl;
     return 0;

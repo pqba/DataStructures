@@ -114,32 +114,32 @@ void BinTree<T>::remove(T item) {
     if (!existsRecur(root, item)) {
         return;
     }
-    BTNode<T>* request = get(root, item);
-    if (request == nullptr) {
+    BTNode<T>* node = get(root, item);
+    if (node == nullptr) {
         return;
     }
     BTNode<T>* parent = getParent(root, item);
     
     // Case 0: No children
-    if (request->left == nullptr && request->right == nullptr) {
+    if (node->left == nullptr && node->right == nullptr) {
         if (parent == nullptr)
             root = nullptr;
-        else if (parent->left == request)
+        else if (parent->left == node)
             parent->left = nullptr;
         else
             parent->right = nullptr;
-        delete request;
+        delete node;
     }
     // Case 2: Both children exist
-    else if (request->left && request->right) {
-        BTNode<T>* scsr = request->left;
-        BTNode<T>* scsrParent = request; // Track parent of the successor
+    else if (node->left && node->right) {
+        BTNode<T>* scsr = node->left;
+        BTNode<T>* scsrParent = node; // Track parent of the successor
         while (scsr->right != nullptr) {
             scsrParent = scsr;
             scsr = scsr->right;
         }
-        T temp = request->val;
-        request->val = scsr->val;
+        T temp = node->val;
+        node->val = scsr->val;
         scsr->val = temp;
         
         // Update parent's pointer to successor node
@@ -152,16 +152,16 @@ void BinTree<T>::remove(T item) {
     }
     // Case 1: One child exists
     else {
-        BTNode<T>* child = (request->left) ? request->left : request->right;
+        BTNode<T>* child = (node->left) ? node->left : node->right;
 
         if (parent == nullptr)
             root = child;
-        else if (parent->left == request)
+        else if (parent->left == node)
             parent->left = child;
         else
             parent->right = child;
 
-        delete request;
+        delete node;
     }
 }
 // Returns in order traversal of entire tree
@@ -175,7 +175,7 @@ template <class T>
 std::string BinTree<T>::inOrderSubtree(BTNode<T>* nd,std::string current){
     if(nd){
         current += inOrderSubtree(nd->left,"");
-        current += " "+ nd->val.print() + " ";
+        current += " " + nd->print() + " ";
         current += inOrderSubtree(nd->right,"");
         return current;
     }
@@ -189,7 +189,7 @@ void BinTree<T>::display(const std::string&prefix, BTNode<T>*nd,bool isLeft ) co
     }
     std::cout << prefix;
     std::cout << (isLeft ? "|--" : "\\--");
-    std::cout << nd->val.print() << "\n";
+    std::cout << nd->print() << "\n";
     display( prefix + (isLeft ? "|   " : "    "), nd->left, true);
     display( prefix + (isLeft ? "|   " : "    "), nd->right, false);
 }
@@ -210,3 +210,5 @@ int BinTree<T>::size(){
 
 // Explicit instantiations
 template class BinTree<Data>;
+template class BinTree<int>;
+template class BinTree<float>;
