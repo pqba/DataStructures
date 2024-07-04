@@ -22,7 +22,7 @@ A project aimed at learning, implementing, and demonstrating various data struct
 > This project uses CMake, Install [Here](https://cmake.org/download/)
 
 ### Build Project
-1. Execute `$: cmake ../ -B .`  in **build/** subdirectory
+1. Execute `$: cmake ../ -B .`  in a **build/** subdirectory
 2. After project is built, simply use **make** command.
 2. Execute binary with `$: build/bin/main_executable`.
 ### Run Configurations
@@ -51,4 +51,4 @@ This project is licensed under the MIT License.
 
 ## Acknowledgements
 
-The implementations of data structures were informed with online resources from various institutions including [Wikipedia](https://en.wikipedia.org/), U Nevada Reno, Stanford Online Library, CMU, U Western Ontario, and Jackson State U.
+The implementations of data structures were informed with online resources from various institutions including Wikipedia, Stanford Online Library, and cppreference.
