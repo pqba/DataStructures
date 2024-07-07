@@ -43,5 +43,10 @@ namespace BT
         bt3.display("",bt3.getRoot(),false);
         bt3.mirror(bt3.getRoot());
         bt3.display("",bt3.getRoot(),false);
+
+        BinTree<int> bt4;
+        bt4.insert(5);
+        bt4.insert(5);
+        bt4.display("",bt4.getRoot(),false);
     }
 }

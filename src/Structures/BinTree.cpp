@@ -1,5 +1,6 @@
 #include "../../include/Structures/BinTree.h"
 #include "../../include/Structures/Data.h"
+#include "../../include/Common/Lexicon.h"
 
 // Construct binary tree
 template <class T>
@@ -78,10 +79,10 @@ BTNode<T>* BinTree<T>::insertSubtree(BTNode<T>* parent,T value) {
     if(!parent){
         return new BTNode<T>(value);
     }
-    else if(value < parent->val){
+    if(value < parent->val){
         parent->left = insertSubtree(parent->left,value);
     }
-    else {
+    else if(value > parent->val) {
         parent->right = insertSubtree(parent->right,value);
     }
     return parent;
@@ -269,3 +270,4 @@ template class BinTree<Data>;
 template class BinTree<int>;
 template class BinTree<float>;
 template class BinTree<long>;
+template class BinTree<Word>;

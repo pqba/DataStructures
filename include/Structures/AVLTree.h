@@ -11,4 +11,6 @@ class AVLTree : public BinTree<T> {
 
     BTNode<T>* rotate_right(BTNode<T>*a,BTNode<T>*b);
     BTNode<T>* rotate_left(BTNode<T>*a,BTNode<T>*b);
+    BTNode<T>* rotate_rightLeft(BTNode<T>*a,BTNode<T>*b);
+    BTNode<T>* rotate_leftRight(BTNode<T>*a,BTNode<T>*b);
 };

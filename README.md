@@ -11,13 +11,13 @@ A project aimed at learning, implementing, and demonstrating various data struct
 - Singly Linked List: Linear collection with each element pointing to the next.
 - Doubly Linked List: Similar to singly linked list but with elements pointing to both next and previous.
 - Binary Search Tree: Hierarchical structure for fast searching, insertion, and deletion.
-
+    - AVL Tree: Subset of BST which uses rotations to optimally organize nodes
 ### Common
 
 - Reverse Polish Notation Calculator: Evaluate mathematical expressions in postfix notation.
 - Music Player: Basic implementation of a music player.
 - Event Handler System: Manage and handle events efficiently.
-
+- Lexicon: Get top keywords and other diagnostics from a text file
 ## Usage
 > This project uses CMake, Install [Here](https://cmake.org/download/)
 
