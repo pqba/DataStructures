@@ -1,10 +1,10 @@
 #include "../../include/Common/MusicPlayer.h"
 
 namespace testM {
-    void testM(){
-            MusicPlayer m;
-    Song s = {"h","bob","--MAGICALBOB--",489};
-    Song b = {"jilly","indigo","Fun Jilly Land Art **:)**",302};
+void testM() {
+    MusicPlayer m;
+    Song s = {"h", "bob", "--MAGICALBOB--", 489};
+    Song b = {"jilly", "indigo", "Fun Jilly Land Art **:)**", 302};
     std::string hors_art = R"(              .     :     .
             .  :    |    :  .
              .  |   |   |  ,
@@ -21,9 +21,11 @@ namespace testM {
                :    |    :
               .     :     .)";
 
-    Song q = {"House of the Rising Sun","The Animals",hors_art,269};
-    m.addSong(s); m.addSong(b); m.addSong(q);
+    Song q = {"House of the Rising Sun", "The Animals", hors_art, 269};
+    m.addSong(s);
+    m.addSong(b);
+    m.addSong(q);
     m.display();
     m.buildPlaylist();
-    }
 }
+}  // namespace testM

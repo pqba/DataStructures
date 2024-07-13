@@ -3,15 +3,14 @@
 
 #include <string> 
 
-
-// DoublyLinkedNode class with template types. Must implement == on data for correctness.
+// DLLNode class with template types. Must implement == on data for correctness.
 template <class T>
-struct DoublyLinkedNode {
+struct DLLNode {
     T data;
-    DoublyLinkedNode<T> * prev;
-    DoublyLinkedNode<T> * next;
-    DoublyLinkedNode(const T& data): data(data), prev(nullptr),next(nullptr) {}
-    bool operator==(const DoublyLinkedNode<T>& rhs) {
+    DLLNode<T> * prev;
+    DLLNode<T> * next;
+    DLLNode(const T& data): data(data), prev(nullptr),next(nullptr) {}
+    bool operator==(const DLLNode<T>& rhs) {
         return this->data == rhs.data;
     }
 };
@@ -20,8 +19,8 @@ struct DoublyLinkedNode {
 template<class T>
 class DoublyLinkedList {
     private:
-        DoublyLinkedNode<T>* head;
-        DoublyLinkedNode<T>* tail;
+        DLLNode<T>* head;
+        DLLNode<T>* tail;
     public:
         DoublyLinkedList();
         ~DoublyLinkedList();
@@ -30,16 +29,18 @@ class DoublyLinkedList {
         void clear();
         bool isEmpty();
 
-        void remove(DoublyLinkedNode<T> *);
+        T pop();
+        void remove(DLLNode<T> *);
         void remove(int);
-        void add(DoublyLinkedNode<T> *);
-        void add(DoublyLinkedNode<T> *, int);
+        void add(DLLNode<T> *);
+        void add(DLLNode<T> *, int);
+        void extend(DoublyLinkedList<T>&);
         void reverse();
 
-        DoublyLinkedNode<T> * get(int);
-        DoublyLinkedNode<T> * getHead();
-        int find(DoublyLinkedNode<T> *);
-        void set(DoublyLinkedNode<T> *, int);
+        DLLNode<T> * get(int);
+        DLLNode<T> * getHead();
+        int find(DLLNode<T> *);
+        void set(DLLNode<T> *, int);
 
         void checkIndex(std::string,int);
 };

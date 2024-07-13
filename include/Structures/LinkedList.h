@@ -2,8 +2,7 @@
 #define LINKEDLIST_H
 #include "Data.h"
 
-struct Node
-{
+struct Node {
     Data info;
     struct Node *link;
     // Returns if internals of Data are the exact same.
@@ -21,34 +20,35 @@ struct Node
 };
 
 class LinkedList {
-    private:
-        Node *head;
-        void setHead(Node * Nd){
-            Nd->link = head->link;
-            head = Nd;
-        }
-    public:
-        LinkedList();
-        ~LinkedList();
+   private:
+    Node *head;
+    void setHead(Node *Nd) {
+        Nd->link = head->link;
+        head = Nd;
+    }
 
-        int size();
-        void clear();
-        bool isEmpty();
+   public:
+    LinkedList();
+    ~LinkedList();
 
-        void remove(Node *);
-        void remove(int);
-        void add(Node *);
-        void add(Node *, int);
+    int size();
+    void clear();
+    bool isEmpty();
 
-        Node * get(int);
-        int find(Node *);
-        void set(Node *, int);
+    void remove(Node *);
+    void remove(int);
+    void add(Node *);
+    void add(Node *, int);
 
-        void reverse();
+    Node *get(int);
+    int find(Node *);
+    void set(Node *, int);
 
-        void checkIndex(std::string,int);
+    void reverse();
 
-        std::string print();
+    void checkIndex(std::string, int);
+
+    std::string print();
 };
 
 #endif

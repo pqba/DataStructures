@@ -4,19 +4,19 @@
 
 // Construct binary tree
 template <class T>
-BinTree<T>::BinTree(){
+BinTree<T>::BinTree() {
     root = nullptr;
 }
 
 // Destructor for binary tree
 template <class T>
-BinTree<T>::~BinTree(){
+BinTree<T>::~BinTree() {
     clear();
 }
 
 // Returns root of binary tree, by reference
 template<class T>
-BTNode<T>* BinTree<T>::getRoot(){
+BTNode<T>* BinTree<T>::getRoot() {
     return root;
 }
 
@@ -53,7 +53,7 @@ bool BinTree<T>::existsRecur(BTNode<T>* nd,T key) {
 }
 // Returns true if key exists as a value of node or is in the subtree of node with iteration
 template <class T>
-bool BinTree<T>::existsIter(BTNode<T>* nd,T key){
+bool BinTree<T>::existsIter(BTNode<T>* nd,T key) {
     while(nd != nullptr) {
         if(nd->val == key){
             return true;
@@ -69,7 +69,7 @@ bool BinTree<T>::existsIter(BTNode<T>* nd,T key){
 }
 // Inserts value into Binary Tree
 template <class T>
-void BinTree<T>::insert(T value){
+void BinTree<T>::insert(T value) {
     root = insertSubtree(root,value);
 }
 
@@ -89,7 +89,7 @@ BTNode<T>* BinTree<T>::insertSubtree(BTNode<T>* parent,T value) {
 }
 
 template <class T>
-BTNode<T>* BinTree<T>::get(BTNode<T>*node,T item){
+BTNode<T>* BinTree<T>::get(BTNode<T>*node,T item) {
     if(!existsRecur(root,item) || node == nullptr) {
         return nullptr;
     }
@@ -167,10 +167,10 @@ void BinTree<T>::remove(T item) {
 }
 // Outputs all traversal paths of tree to console
 template <class T>
-void BinTree<T>::paths(BTNode<T>*node,const std::string s){
+void BinTree<T>::paths(BTNode<T>*node,const std::string s) {
     BTNode<T>* l = nullptr;
     BTNode<T>* r = nullptr;
-    if(node){
+    if(node) {
         l = node->left; r = node->right;
         std::string pth = s + " " + node->print();
         if(l == nullptr && r == nullptr){
@@ -182,8 +182,8 @@ void BinTree<T>::paths(BTNode<T>*node,const std::string s){
 }
 // Mirror's the binary tree, NOTE: removes the BST property
 template <class T>
-void BinTree<T>::mirror(BTNode<T>*nd){
-    if(nd){
+void BinTree<T>::mirror(BTNode<T>*nd) {
+    if(nd) {
         BTNode<T>* temp = nd->left;
         nd->left = nd->right;
         nd->right = temp;
@@ -196,10 +196,30 @@ template <class T>
 std::string BinTree<T>::inOrder(){
     return inOrderSubtree(root,"");
 }
+// Returns Doubly Linked List representation of entire tree
+template <class T>
+DoublyLinkedList<T>* BinTree<T>::inOrderList(){
+    return inOrderSubtreeList(getRoot());
+}
+// TODO: fix
+// Returns Doubly Linked List representation of tree's order in subtree
+template <class T>
+DoublyLinkedList<T>* BinTree<T>::inOrderSubtreeList(BTNode<T>* nd) {
+    DoublyLinkedList<T>* result = new DoublyLinkedList<T>();
+
+    if (nd) {
+        // In-order recursive calls
+        result = inOrderSubtreeList(nd->left);
+        result->add(new DLLNode<T>(nd->val));
+        result->extend(*inOrderSubtreeList(nd->right));
+    }
+
+    return result;
+}
 
 // Returns space delimited string representing the in-order traversal of binary tree's subtree
 template <class T>
-std::string BinTree<T>::inOrderSubtree(BTNode<T>* nd,std::string current){
+std::string BinTree<T>::inOrderSubtree(BTNode<T>* nd,std::string current) {
     if(nd){
         current += inOrderSubtree(nd->left,"");
         current += " " + nd->print() + " ";
@@ -209,7 +229,7 @@ std::string BinTree<T>::inOrderSubtree(BTNode<T>* nd,std::string current){
     return "";
 }
 template <class T>
-std::string BinTree<T>::postOrder(){
+std::string BinTree<T>::postOrder() {
     return postOrderSubtree(root,"");
 }
 template <class T>
@@ -237,7 +257,7 @@ void BinTree<T>::display(const std::string&prefix, BTNode<T>*nd,bool isLeft ) co
 
 // Return number of nodes in given subtree
 template <class T>
-int BinTree<T>::subtreeSize(BTNode<T>* nd){
+int BinTree<T>::subtreeSize(BTNode<T>* nd) {
     if(!nd) {
         return 0;
     }
@@ -245,7 +265,7 @@ int BinTree<T>::subtreeSize(BTNode<T>* nd){
 }
 // Return number of nodes in tree
 template <class T>
-int BinTree<T>::size(){
+int BinTree<T>::size() {
     return subtreeSize(root);
 }
 
@@ -254,8 +274,8 @@ int BinTree<T>::maxDepth(){
     return maxSubtreeDepth(root);   
 }
 template <class T>
-int BinTree<T>::maxSubtreeDepth(BTNode<T>*nd){
-    if(nd){
+int BinTree<T>::maxSubtreeDepth(BTNode<T>*nd) {
+    if(nd) {
         int ld = maxSubtreeDepth(nd->left);
         int rd = maxSubtreeDepth(nd->right);
         if(ld >= rd){

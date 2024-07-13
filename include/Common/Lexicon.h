@@ -1,67 +1,91 @@
 #ifndef LEXICON_H
 #define LEXICON_H
+#define TOP_W_COUNT 16
 #include <string>
+
 #include "../Structures/BinTree.h"
 
 // Word with frequency and message for Lexicon
 struct Word {
     std::string message;
     int freq;
-
-    Word(std::string msg, int f){
+    Word(){
+        message = "";
+        freq = 0;
+    }
+    Word(std::string msg, int f) {
         message = msg;
         freq = f;
     }
-    const std::string& getMsg() const{
+    const std::string& getMsg() const {
         return message;
     }
-    const int getFreq() const{
+    const int getFreq() const {
         return freq;
     }
-    void setFreq(int f){
+    void setFreq(int f) {
         freq = f;
     }
-    void setMsg(std::string msg){
+    void setMsg(std::string msg) {
         message = msg;
     }
-    bool operator==(const Word& other){
+    bool operator==(const Word& other) {
         return other.getFreq() == freq && other.getMsg() == message;
     }
-    bool operator>(const Word& other){
-        return other.getFreq() > freq;
+    bool operator>(const Word& other) {
+        if (freq > other.getFreq()) {
+            return true;
+        } else if (message > other.getMsg()) {
+            return true;
+        }
+        return false;
     }
-    bool operator<(const Word& other){
-        return other.getFreq() < freq;
+    bool operator<(const Word& other) {
+        if (freq < other.getFreq()) {
+            return true;
+        } else if (message < other.getMsg()) {
+            return true;
+        }
+        return false;
     }
-    const std::string& print() const {
+    const std::string print() const {
         return message + "-" + std::to_string(freq);
     }
 };
 // Summarizes inputted text, sorts by frequency to output important words
 class Lexicon {
-    void loadWords(const std::string& text);
-    
-    void addWord(const std::string& w);
-    void removeWord(const std::string& w);
-    int getFrequency(std::string& w) const;
+   private:
+    BinTree<Word> textTree;
 
-    std::string topWords(int n);
-    const int vocabulary(){
+   public:
+    void loadWords(const std::string& text);
+
+    // Word is invalid if message is an empty string
+    bool invalidWord(const Word& w) {
+        return w.getMsg() == "";
+    }
+
+    BTNode<Word>* find(const std::string& w);
+
+    void removeWord(const std::string& w);
+    int getFrequency(const std::string& w);
+
+    DoublyLinkedList<Word> topWords(int n);
+
+    // Vocabulary (tree size) of Lexicon
+    const int vocabulary() {
         return textTree.size();
     }
-    Lexicon(){
+    Lexicon() {
         textTree = BinTree<Word>();
     }
-    Lexicon(const std::string& text){
+    Lexicon(const std::string& text) {
         textTree = BinTree<Word>();
         loadWords(text);
     }
-    ~Lexicon(){
+    ~Lexicon() {
         textTree.clear();
     }
-    private:
-        BinTree<Word> textTree;
-        
 };
 
 #endif
