@@ -12,9 +12,9 @@
 // Common
 #include "../include/Common/Event.h"
 #include "../include/Common/EventHandler.h"
+#include "../include/Common/Lexicon.h"
 #include "../include/Common/MusicPlayer.h"
 #include "Common/RPN.cpp"
-#include "../include/Common/Lexicon.h"
 
 // Structures
 #include "../include/Structures/BinTree.h"
@@ -58,14 +58,18 @@ void test_BT() {
     BT::testBT();
 }
 int main() {
-
     std::cout << "BEGIN MAIN()" << std::endl;
+
+    Lexicon l = Lexicon();
+    l.loadFile("src/sonnet.txt");
+    DoublyLinkedList<Word>* X = l.topWords(10);
+    for (int i = 0; i < X->size(); i++) {
+        std::cout << X->get(i)->data.print() << " ";
+    }
+    std::cout << "\n";
+    delete X;
     
-        Lexicon l = Lexicon("hello world\nHello world");
-        l.outputTopWords(2," ");
-        
-        std::cout << "END MAIN()" << std::endl;
-    
+    std::cout << "END MAIN()" << std::endl;
+
     return 0;
 }
-
