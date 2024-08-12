@@ -29,25 +29,17 @@ struct Word {
     void setMsg(std::string msg) {
         message = msg;
     }
-    bool operator==(const Word& other) {
+    bool operator==(const Word& other) const {
         return other.getFreq() == freq && other.getMsg() == message;
     }
-    bool operator>(const Word& other) {
-        if (freq > other.getFreq()) {
-            return true;
-        } else if (message > other.getMsg()) {
-            return true;
-        }
-        return false;
+    bool operator>(const Word& other) const {
+        return freq > other.freq || (freq == other.freq && message > other.message);
     }
-    bool operator<(const Word& other) {
-        if (freq < other.getFreq()) {
-            return true;
-        } else if (message < other.getMsg()) {
-            return true;
-        }
-        return false;
+
+    bool operator<(const Word& other) const {
+        return freq < other.freq || (freq == other.freq && message < other.message);
     }
+
     const std::string print() const {
         return message + "-" + std::to_string(freq);
     }
@@ -60,6 +52,7 @@ class Lexicon {
     int ignoreLen;
 
    public:
+    void loadFile(const std::string& fname);
     void loadIgnore(int size, std::string A[]);
     void loadWords(const std::string& text);
 
@@ -84,6 +77,7 @@ class Lexicon {
     }
     Lexicon() {
         textTree = BinTree<Word>();
+        ignoreLen = 0;
     }
     Lexicon(const std::string& text) {
         textTree = BinTree<Word>();
@@ -95,10 +89,7 @@ class Lexicon {
         loadIgnore(sz,ign);
         loadWords(text);
     }
-    ~Lexicon() {
-        textTree.clear();
-        ignoreLen = 0;
-    }
+    ~Lexicon() {}
 };
 
 #endif

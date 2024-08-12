@@ -1,8 +1,20 @@
 #include "../../include/Common/Lexicon.h"
 #include <unordered_map>
 #include <sstream>
+#include <fstream>
+#include <algorithm>
 #include <vector>
 
+// Loads entire ASCII text file into tree given a valid filename, doesn't load if invalid
+void Lexicon::loadFile(const std::string& fname) {
+    std::ifstream textFile(fname);
+    if(textFile.is_open()){
+        std::stringstream buffer;
+        buffer << textFile.rdbuf();
+        std::string corpus = buffer.str();
+        loadWords(corpus);
+    }
+}
 
 // Loads strings up to size  amount into ignore array
 void Lexicon::loadIgnore(int size, std::string A[]) {
@@ -102,10 +114,17 @@ DoublyLinkedList<Word>* Lexicon::topWords(int n) {
         n = tree_size;
     }
     DoublyLinkedList<Word>* lst = textTree.inOrderList();
+    std::vector<Word> wordVec;
+    int l_sz = lst->size();
+    for(int ind = 0; ind < l_sz; ind++){
+        wordVec.push_back(lst->pop());
+    }
+    std::sort(wordVec.begin(),wordVec.end());
+
     DoublyLinkedList<Word>* top_list = new DoublyLinkedList<Word>();
     for(int i = 0; i < n; i++){
-        Word w = lst->pop();
-        top_list->add(new DLLNode<Word>(w));
+        top_list->add(new DLLNode<Word>(wordVec.back()));
+        wordVec.pop_back();
     }
     delete lst;
     return top_list;   
@@ -120,8 +139,15 @@ void Lexicon::outputTopWords(int n, std::string delim){
     n = tree_size < n ?  tree_size : n;
     DoublyLinkedList<Word> * lst = textTree.inOrderList();
     
+    std::vector<Word> wordVec;
+    int l_sz = lst->size();
+    for(int ind = 0; ind < l_sz; ind++){
+        wordVec.push_back(lst->pop());
+    }
+    std::sort(wordVec.begin(),wordVec.end(),std::greater<Word>());
+
     for(int i = 0; i < n; i++){
-        std::cout << lst->pop().print() << delim;
+        std::cout << wordVec.at(i).print() << delim;
     }
     std::cout << "\n";
     delete lst;

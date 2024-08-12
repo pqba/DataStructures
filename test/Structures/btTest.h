@@ -1,8 +1,8 @@
 #include "../../include/Structures/BinTree.h"
 #include "../../include/Structures/Data.h"
 
-namespace BT {
-void testBT() {
+namespace BTTest {
+void test() {
     BinTree<Data> bt;
     for (int i = 1; i < 15; i++) {
         Data d = Data(rand() % (i + 5), i, "D");

@@ -3,9 +3,9 @@
 #include "../../include/Structures/Data.h"
 #include "../../include/Structures/LinkedList.h"
 
-namespace TestLL {
+namespace LLTest {
 
-void testLL() {
+void test() {
     LinkedList l;
     l.add(new Node(Data(1, 1.1, "A")));
     l.add(new Node(Data(2, 1.1, "B")));
