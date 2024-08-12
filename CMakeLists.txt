@@ -11,9 +11,6 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 # Find all source files
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
-# Remove test files if any
-list(FILTER SOURCES EXCLUDE REGEX "test/.*\\.cpp$")
-
 # Create executable
 add_executable(main_executable ${SOURCES})
 

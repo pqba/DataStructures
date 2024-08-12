@@ -1,7 +1,7 @@
 #include "../../include/Common/MusicPlayer.h"
 
-namespace testM {
-void testM() {
+namespace MusTest {
+void test() {
     MusicPlayer m;
     Song s = {"h", "bob", "--MAGICALBOB--", 489};
     Song b = {"jilly", "indigo", "Fun Jilly Land Art **:)**", 302};

@@ -2,12 +2,7 @@
 #include <iostream>
 #include <random>
 // tests
-#include "../test/Common/mTest.cpp"
-#include "../test/Structures/btTest.cpp"
-#include "../test/Structures/dataTest.cpp"
-#include "../test/Structures/dllTest.cpp"
-#include "../test/Structures/llTest.cpp"
-#include "../test/Structures/qTest.cpp"
+#include "../test/test_suite.cpp"
 
 // Common
 #include "../include/Common/Event.h"
@@ -16,12 +11,7 @@
 #include "../include/Common/MusicPlayer.h"
 #include "Common/RPN.cpp"
 
-// Structures
-#include "../include/Structures/BinTree.h"
-#include "../include/Structures/Data.h"
-#include "../include/Structures/DoublyLinkedList.h"
-#include "../include/Structures/LinkedList.h"
-#include "../include/Structures/Queue.h"
+
 
 void play_RPN() {
     std::string userEquation = "";
@@ -32,43 +22,15 @@ void play_RPN() {
     std::cout << "Algebraic: " << eq.describeAlgebraic(userEquation) << " = " << eq.getResult() << "\n";
 }
 
-void test_Data() {
-    testData::testD();
-}
-void test_DLL() {
-    TestDLL::testDLL();
-}
-
-void test_LL() {
-    TestLL::testLL();
-}
-void test_Music() {
-    testM::testM();
-}
-
-void test_Q() {
-    TestQ::testQ();
-}
-
 void test_EventHandler() {
     EH::runEventHandle();
 }
 
-void test_BT() {
-    BT::testBT();
-}
 int main() {
     std::cout << "BEGIN MAIN()" << std::endl;
 
-    Lexicon l = Lexicon();
-    l.loadFile("src/sonnet.txt");
-    DoublyLinkedList<Word>* X = l.topWords(10);
-    for (int i = 0; i < X->size(); i++) {
-        std::cout << X->get(i)->data.print() << " ";
-    }
-    std::cout << "\n";
-    delete X;
-    
+    test_Lex();
+
     std::cout << "END MAIN()" << std::endl;
 
     return 0;

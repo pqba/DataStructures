@@ -2,8 +2,8 @@
 
 #include "../../include/Structures/Data.h"
 
-namespace testData {
-void testD() {
+namespace DataTest {
+void test() {
     Data make = Data();
     make.setName("hello");
     if (make.getName() != "hello") {

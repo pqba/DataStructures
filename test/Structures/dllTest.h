@@ -3,9 +3,9 @@
 #include <iostream>
 #include <random>
 
-namespace TestDLL
+namespace DLLTest
 {
-    void testDLL()
+    void test()
     {
         int amt_items = 15;
         DoublyLinkedList<int> list;

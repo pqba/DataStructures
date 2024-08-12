@@ -4,8 +4,8 @@
 #include "../../include/Structures/Data.h"
 #include "../../include/Structures/Queue.h"
 
-namespace TestQ {
-void testQ() {
+namespace QTest {
+void test() {
     Queue<Data> q;
     std::cout << "Queue size: " << q.size() << std::endl;
     std::cout << "Queue is empty: " << std::boolalpha << q.isEmpty() << std::endl;
