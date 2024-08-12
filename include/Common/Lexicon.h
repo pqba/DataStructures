@@ -1,6 +1,6 @@
 #ifndef LEXICON_H
 #define LEXICON_H
-#define TOP_W_COUNT 16
+#define MAX_IGNORE 10
 #include <string>
 
 #include "../Structures/BinTree.h"
@@ -56,9 +56,14 @@ struct Word {
 class Lexicon {
    private:
     BinTree<Word> textTree;
+    std::string ignoredWords[MAX_IGNORE];
+    int ignoreLen;
 
    public:
+    void loadIgnore(int size, std::string A[]);
     void loadWords(const std::string& text);
+
+    const BinTree<Word>& getTree();
 
     // Word is invalid if message is an empty string
     bool invalidWord(const Word& w) {
@@ -70,7 +75,8 @@ class Lexicon {
     void removeWord(const std::string& w);
     int getFrequency(const std::string& w);
 
-    DoublyLinkedList<Word> topWords(int n);
+    DoublyLinkedList<Word>* topWords(int n);
+    void outputTopWords(int n, std::string);
 
     // Vocabulary (tree size) of Lexicon
     const int vocabulary() {
@@ -81,10 +87,17 @@ class Lexicon {
     }
     Lexicon(const std::string& text) {
         textTree = BinTree<Word>();
+        ignoreLen = 0;
+        loadWords(text);
+    }
+    Lexicon(const std::string& text, int sz, std::string ign[]){
+        textTree = BinTree<Word>();
+        loadIgnore(sz,ign);
         loadWords(text);
     }
     ~Lexicon() {
         textTree.clear();
+        ignoreLen = 0;
     }
 };
 

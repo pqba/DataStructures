@@ -54,19 +54,23 @@ bool DoublyLinkedList<T>::isEmpty(){
 
 // returns and removes last element in DLL
 template <class T>
-T DoublyLinkedList<T>::pop(){
-    if(isEmpty()){
+T DoublyLinkedList<T>::pop() {
+    if (isEmpty()) {
         throw std::invalid_argument("Can't pop from empty DLL.");
     }
     T end = tail->data;
-    if(tail == head){
+    if (tail == head) {
+        delete tail;
         head = tail = nullptr;
-    }
-    else {
+    } else {
+        DLLNode<T>* oldTail = tail;
         tail = tail->prev;
+        tail->next = nullptr;
+        delete oldTail;
     }
-    return end; 
+    return end;
 }
+
 // Removes first ordered occurence of DLLNode (same data), if found.
 template<class T>
 void DoublyLinkedList<T>::remove(DLLNode<T> * nd){

@@ -201,7 +201,6 @@ template <class T>
 DoublyLinkedList<T>* BinTree<T>::inOrderList(){
     return inOrderSubtreeList(getRoot());
 }
-// TODO: fix
 // Returns Doubly Linked List representation of tree's order in subtree
 template <class T>
 DoublyLinkedList<T>* BinTree<T>::inOrderSubtreeList(BTNode<T>* nd) {

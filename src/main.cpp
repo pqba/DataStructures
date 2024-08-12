@@ -14,6 +14,7 @@
 #include "../include/Common/EventHandler.h"
 #include "../include/Common/MusicPlayer.h"
 #include "Common/RPN.cpp"
+#include "../include/Common/Lexicon.h"
 
 // Structures
 #include "../include/Structures/BinTree.h"
@@ -57,8 +58,14 @@ void test_BT() {
     BT::testBT();
 }
 int main() {
+
     std::cout << "BEGIN MAIN()" << std::endl;
-    test_DLL();
-    std::cout << "END MAIN()" << std::endl;
+    
+        Lexicon l = Lexicon("hello world\nHello world");
+        l.outputTopWords(2," ");
+        
+        std::cout << "END MAIN()" << std::endl;
+    
     return 0;
 }
+
