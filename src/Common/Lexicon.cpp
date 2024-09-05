@@ -130,6 +130,52 @@ DoublyLinkedList<Word>* Lexicon::topWords(int n) {
     return top_list;   
 }
 
+// Returns: longest word in Lexicon. "" if Lexicon empty
+std::string Lexicon::shortestWord() {
+    int dataLen = vocabulary();
+    if(vocabulary() <= 0) return "";
+    Word * wordData = DLL_To_Array(*textTree.inOrderList());
+
+    std::string longestWord = wordData[0].getMsg();
+    for(int i = 1; i < dataLen;  i++) {
+        std::string currWord = wordData[i].getMsg();
+        if(currWord.length() > longestWord.length()){
+            longestWord = currWord;
+        }
+    }
+    return longestWord;
+}
+
+// Returns: shortest word in Lexicon. "" if Lexicon empty
+std::string Lexicon::shortestWord() {
+    int dataLen = vocabulary();
+    if(vocabulary() <= 0) return "";
+    Word * wordData = DLL_To_Array(*textTree.inOrderList());
+    std::string shortestWord = wordData[0].getMsg();
+    for(int i = 1; i < dataLen;  i++) {
+        std::string currWord = wordData[i].getMsg();
+        if(currWord.length() < shortestWord.length()){
+            shortestWord = currWord;
+        }
+    }
+    return shortestWord;
+}
+
+// Returns: string with all combinations of most similar pairs (lowest Levenshtein distance). "" if Lexicon empty
+std::string Lexicon::mostSimilarPair(){
+    int dataLen = vocabulary();
+    if(vocabulary() <= 0) return "";
+    Word *  wordData = DLL_To_Array(*textTree.inOrderList());
+    // ~ Pseudocode ~
+    // N = vocabulary, w = word list,  min_ld = inf, sol = {"",""}
+    // for i in N
+        // for j in (i+1,N)
+          // ld = lev_dist(w[i],w[j])
+          // if ld <= min_ld: sol.add( {w[i],w[j]} )
+    // return sol
+
+}
+
 // Displays highest n frequency words in tree, seperated by a delimiter
 void Lexicon::outputTopWords(int n, std::string delim){
     if(n <= 0 || vocabulary() <= 0) {
@@ -152,3 +198,18 @@ void Lexicon::outputTopWords(int n, std::string delim){
     std::cout << "\n";
     delete lst;
 }
+
+// Utils
+
+// Returns array representation of doubly linked list and its length in pair object
+Word * DLL_To_Array(DoublyLinkedList<Word> dll) {
+    int sz = dll.size(); // Must be vocabulary()
+    Word * result = new Word[sz];
+    for(int i = 0; i < sz; i++){
+        result[i] = dll.get(i)->data;
+    }
+
+    return result;
+}
+
+// int Levenshtein_Distance(string a, string b) { ... }

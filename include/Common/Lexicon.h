@@ -75,6 +75,10 @@ class Lexicon {
     const int vocabulary() {
         return textTree.size();
     }
+    std::string longestWord();
+    std::string shortestWord();
+    std::string mostSimilarPair();
+
     Lexicon() {
         textTree = BinTree<Word>();
         ignoreLen = 0;
