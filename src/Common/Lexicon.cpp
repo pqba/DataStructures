@@ -131,10 +131,10 @@ DoublyLinkedList<Word>* Lexicon::topWords(int n) {
 }
 
 // Returns: longest word in Lexicon. "" if Lexicon empty
-std::string Lexicon::shortestWord() {
+std::string Lexicon::longestWord() {
     int dataLen = vocabulary();
     if(vocabulary() <= 0) return "";
-    Word * wordData = DLL_To_Array(*textTree.inOrderList());
+    Word * wordData = dllToArray(*textTree.inOrderList());
 
     std::string longestWord = wordData[0].getMsg();
     for(int i = 1; i < dataLen;  i++) {
@@ -150,7 +150,7 @@ std::string Lexicon::shortestWord() {
 std::string Lexicon::shortestWord() {
     int dataLen = vocabulary();
     if(vocabulary() <= 0) return "";
-    Word * wordData = DLL_To_Array(*textTree.inOrderList());
+    Word * wordData = dllToArray(*textTree.inOrderList());
     std::string shortestWord = wordData[0].getMsg();
     for(int i = 1; i < dataLen;  i++) {
         std::string currWord = wordData[i].getMsg();
@@ -161,19 +161,26 @@ std::string Lexicon::shortestWord() {
     return shortestWord;
 }
 
-// Returns: string with all combinations of most similar pairs (lowest Levenshtein distance). "" if Lexicon empty
-std::string Lexicon::mostSimilarPair(){
+// Returns: string pair with the most similar pair (lowest Levenshtein distance). "","" if Lexicon empty
+std::pair<std::string,std::string> Lexicon::mostSimilarPair(){
     int dataLen = vocabulary();
-    if(vocabulary() <= 0) return "";
-    Word *  wordData = DLL_To_Array(*textTree.inOrderList());
-    // ~ Pseudocode ~
-    // N = vocabulary, w = word list,  min_ld = inf, sol = {"",""}
-    // for i in N
-        // for j in (i+1,N)
-          // ld = lev_dist(w[i],w[j])
-          // if ld <= min_ld: sol.add( {w[i],w[j]} )
-    // return sol
-
+    if(vocabulary() <= 0) return {"",""};
+    Word * wordData = dllToArray(*textTree.inOrderList());
+    int min_ld = INT_MAX;
+    std::pair<std::string,std::string> sol = {"",""};
+    int N = vocabulary();
+    for(int i = 0; i < N-1;i++) {
+        for(int j = i+1; j < N;j++) {
+            std::string first = wordData[i].getMsg();
+            std::string second = wordData[j].getMsg();
+            int ld = levenshteinDistance(first,second);
+            if(ld < min_ld) {
+                min_ld = ld;
+                sol.first = first; sol.second = second;
+            }
+        }
+    }
+    return sol;
 }
 
 // Displays highest n frequency words in tree, seperated by a delimiter
@@ -202,14 +209,42 @@ void Lexicon::outputTopWords(int n, std::string delim){
 // Utils
 
 // Returns array representation of doubly linked list and its length in pair object
-Word * DLL_To_Array(DoublyLinkedList<Word> dll) {
+Word * dllToArray(DoublyLinkedList<Word> dll) {
     int sz = dll.size(); // Must be vocabulary()
     Word * result = new Word[sz];
     for(int i = 0; i < sz; i++){
         result[i] = dll.get(i)->data;
     }
-
     return result;
 }
 
-// int Levenshtein_Distance(string a, string b) { ... }
+// Returns an integer representing the levensthein distance between the two strings
+int levenshteinDistance(std::string a, std::string b) {
+    // initialize N x M array with 0's
+    int N = a.length(); int M = b.length();
+    int dist[N + 1][M + 1];
+
+    for (int i = 0; i <= N; i++) {
+        for (int j = 0; j <= M; j++) {
+            dist[i][j] = 0;
+        }
+    }
+
+    // source prefixes
+    for (int i = 1; i <= N; i++) {
+        dist[i][0] = i;
+    }
+
+    // targets
+    for (int j = 1; j <= M; j++) {
+        dist[0][j] = j;
+    }
+
+    for (int i = 1; i <= N; i++) {
+        for (int j = 1; j <= M; j++) {
+            int substitution = (a[i-1] == b[j-1]) ? 0 : 1;
+            dist[i][j] = std::min({dist[i-1][j] + 1, dist[i][j-1] + 1, dist[i-1][j-1] + substitution});
+        }
+    }
+    return dist[N][M];
+}

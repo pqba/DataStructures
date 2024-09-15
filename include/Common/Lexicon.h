@@ -5,6 +5,7 @@
 
 #include "../Structures/BinTree.h"
 
+
 // Word with frequency and message for Lexicon
 struct Word {
     std::string message;
@@ -44,6 +45,11 @@ struct Word {
         return message + "-" + std::to_string(freq);
     }
 };
+
+// General Utils for Lexicon
+int levenshteinDistance(std::string first, std::string second);
+Word * dllToArray(DoublyLinkedList<Word> list);
+
 // Summarizes inputted text, sorts by frequency to output important words
 class Lexicon {
    private:
@@ -77,7 +83,7 @@ class Lexicon {
     }
     std::string longestWord();
     std::string shortestWord();
-    std::string mostSimilarPair();
+    std::pair<std::string,std::string> mostSimilarPair();
 
     Lexicon() {
         textTree = BinTree<Word>();

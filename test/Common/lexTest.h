@@ -9,6 +9,9 @@ namespace LexTest {
     }
     std::cout << "\n";
     delete X;
+    Lexicon levvy = Lexicon("kitten\nkitte\nsitting\nxxxxxux");
+    std::pair<std::string,std::string> mostSim = levvy.mostSimilarPair();
+    std::cout << mostSim.first << " " <<  mostSim.second << "\n";
     
     }
 }
