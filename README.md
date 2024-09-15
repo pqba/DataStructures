@@ -2,6 +2,8 @@
 
 A project aimed at learning, implementing, and demonstrating various data structures with their common applications.
 
+<img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Network_Community_Structure.svg" height="150" alt="" title="Graph Connectivity">
+
 ## Features
 
 ### Data Structures
