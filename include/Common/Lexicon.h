@@ -21,7 +21,7 @@ struct Word {
     const std::string& getMsg() const {
         return message;
     }
-    const int getFreq() const {
+    int getFreq() const {
         return freq;
     }
     void setFreq(int f) {
@@ -50,12 +50,17 @@ struct Word {
 int levenshteinDistance(std::string first, std::string second);
 Word * dllToArray(DoublyLinkedList<Word> list);
 
+typedef std::unordered_map<std::string,std::unordered_map<std::string,float> > markov_t;
+
 // Summarizes inputted text, sorts by frequency to output important words
 class Lexicon {
    private:
     BinTree<Word> textTree;
     std::string ignoredWords[MAX_IGNORE];
+    markov_t predictor;
     int ignoreLen;
+    int MAX_WC = 3000;
+    std::vector<std::string> originalStream;
 
    public:
     void loadFile(const std::string& fname);
@@ -78,26 +83,34 @@ class Lexicon {
     void outputTopWords(int n, std::string);
 
     // Vocabulary (tree size) of Lexicon
-    const int vocabulary() {
+    int vocabulary() {
         return textTree.size();
     }
     std::string longestWord();
     std::string shortestWord();
     std::pair<std::string,std::string> mostSimilarPair();
 
+    void make_predictor(int o);
+
+    // Generates a sentence list from chain of some given size
+    std::vector<std::string> generate_sentences(int l);
+
     Lexicon() {
         textTree = BinTree<Word>();
         ignoreLen = 0;
+        predictor = markov_t();
     }
     Lexicon(const std::string& text) {
         textTree = BinTree<Word>();
         ignoreLen = 0;
         loadWords(text);
+        predictor = markov_t();
     }
     Lexicon(const std::string& text, int sz, std::string ign[]){
         textTree = BinTree<Word>();
         loadIgnore(sz,ign);
         loadWords(text);
+        predictor = markov_t();
     }
     ~Lexicon() {}
 };

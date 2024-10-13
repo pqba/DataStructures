@@ -33,6 +33,7 @@ void Lexicon::loadIgnore(int size, std::string A[]) {
 
 // Loads in space delinated newline split text to tree 
 void Lexicon::loadWords(const std::string& text) {
+    int wc = 0;
     std::unordered_map<std::string,int> freqMap;
     std::istringstream blockStream(text);
     std::string line;
@@ -42,8 +43,11 @@ void Lexicon::loadWords(const std::string& text) {
         std::istringstream lineStream(line);
         std::string sequence;
         while(lineStream >> sequence) {
-            if(freqMap.find(sequence) != freqMap.end()){
+            if(freqMap.find(sequence) != freqMap.end()) {
                 freqMap[sequence] += 1;
+                if(wc < MAX_WC) {
+                    originalStream.push_back(sequence);
+                }
             }
             else {
                 bool contains = false;
@@ -55,6 +59,10 @@ void Lexicon::loadWords(const std::string& text) {
                 }
                 if(!contains) {
                     freqMap[sequence] = 1;
+                    if(wc < MAX_WC) {
+                        originalStream.push_back(sequence);
+                        wc++;
+                    }
                 }
             }
         }
@@ -163,7 +171,6 @@ std::string Lexicon::shortestWord() {
 
 // Returns: string pair with the most similar pair (lowest Levenshtein distance). "","" if Lexicon empty
 std::pair<std::string,std::string> Lexicon::mostSimilarPair(){
-    int dataLen = vocabulary();
     if(vocabulary() <= 0) return {"",""};
     Word * wordData = dllToArray(*textTree.inOrderList());
     int min_ld = INT_MAX;
@@ -183,6 +190,62 @@ std::pair<std::string,std::string> Lexicon::mostSimilarPair(){
     return sol;
 }
 
+// Creates a Markov chain based off of textTree and frequences of words of a given order
+void Lexicon::make_predictor(int order) {
+    if(order < 1) {
+        return;
+    }
+    // gather counts of each word
+    markov_t m_chain;
+    // Generate |integer frequencies| based on states state using full original word stream
+    for(int i = 0; i < (int)originalStream.size() - order; i++) {
+        // get a comma delineated string of ORDER previous items and then the next token
+        std::string prev_state = "";
+        for(int j = i; j < i + order; j++) {
+            prev_state += originalStream.at(j) + std::string(",");
+        }
+        std::string next_token = originalStream.at(i+order);
+        // check if indexing into chain/counts work and increment, if not add correspondence of m_chain[prev][next=1]
+        if(m_chain.find(prev_state) != m_chain.end()) {
+            std::unordered_map<std::string,float> counts = m_chain[prev_state];
+            if(counts.find(next_token) != counts.end()) {
+                m_chain[prev_state][next_token] += 1;
+            }
+            else {
+                m_chain[prev_state][next_token] = 1;
+            }
+        }
+        else {
+            std::unordered_map<std::string,float> build_counts;
+            build_counts[next_token] = 1;
+            m_chain[prev_state] = build_counts;
+        }
+    }
+    // Generate |float probabilities| based on prev state
+    for(auto& state_maps : m_chain) {
+        float total_occurences = 0;
+        // count total occurences for state_maps[str key]
+        for(auto& occurence_maps : state_maps.second) {
+             total_occurences +=  occurence_maps.second;
+        }
+        // make probabilities state_maps[str key] / tot_occurences
+        for(auto& occurence_maps : state_maps.second) {
+            occurence_maps.second /= total_occurences;
+        }
+    }
+    // update predictor
+    predictor = m_chain;
+}
+
+// Generates a sentence length words long from predictive chain 
+std::vector<std::string> Lexicon::generate_sentences(int length) {
+    if(predictor.size() == 0) {
+        return std::vector<std::string>();
+    }
+    std::vector<std::string> sentence;
+    // ... logic
+    return sentence;
+}
 // Displays highest n frequency words in tree, seperated by a delimiter
 void Lexicon::outputTopWords(int n, std::string delim){
     if(n <= 0 || vocabulary() <= 0) {
@@ -243,7 +306,7 @@ int levenshteinDistance(std::string a, std::string b) {
     for (int i = 1; i <= N; i++) {
         for (int j = 1; j <= M; j++) {
             int substitution = (a[i-1] == b[j-1]) ? 0 : 1;
-            dist[i][j] = std::min({dist[i-1][j] + 1, dist[i][j-1] + 1, dist[i-1][j-1] + substitution});
+            dist[i][j] = std::min(std::min(dist[i-1][j] + 1, dist[i][j-1] + 1), dist[i-1][j-1] + substitution);
         }
     }
     return dist[N][M];
