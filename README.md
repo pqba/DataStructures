@@ -19,7 +19,7 @@ A project aimed at learning, implementing, and demonstrating various data struct
 - Reverse Polish Notation Calculator: Evaluate mathematical expressions in postfix notation.
 - Music Player: Basic implementation of a music player.
 - Event Handler System: Manage and handle events efficiently.
-- Lexicon: Get top keywords, similar words, and other diagnostics from a text file
+- Lexicon: Get top keywords, similar words, generate novel text, and find other diagnostics from a text file
 ## Usage
 > This project uses CMake, Install [Here](https://cmake.org/download/)
 
