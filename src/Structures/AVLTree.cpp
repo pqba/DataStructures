@@ -21,6 +21,7 @@ int AVLTree<T>::balance(BTNode<T>* node) {
 }
 
 // Inserts T, maintaining AVL Tree properties
+/*
 template <class T>
 void AVLTree<T>::insert(T value) {
     BTNode<T>* node = BinTree<T>::insertSubtree(BinTree<T>::getRoot(), value);
@@ -35,3 +36,4 @@ BTNode<T>* AVLTree<T>::rotate_right(BTNode<T>* X, BTNode<T>* Z) {
 template <class T>
 BTNode<T>* AVLTree<T>::rotate_left(BTNode<T>* X, BTNode<T>* Z) {
 }
+*/
