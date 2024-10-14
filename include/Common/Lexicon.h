@@ -5,12 +5,11 @@
 
 #include "../Structures/BinTree.h"
 
-
 // Word with frequency and message for Lexicon
 struct Word {
     std::string message;
     int freq;
-    Word(){
+    Word() {
         message = "";
         freq = 0;
     }
@@ -47,10 +46,17 @@ struct Word {
 };
 
 // General Utils for Lexicon
-int levenshteinDistance(std::string first, std::string second);
-Word * dllToArray(DoublyLinkedList<Word> list);
+int levenshteinDistance(const std::string& first, const std::string& second);
+Word* dllToArray(DoublyLinkedList<Word> list);
+std::deque<std::string> expand(const std::string& s, char delim);
+const std::string join(const std::deque<std::string>& vec, const char delim);
+const std::string weightedChoice(const std::unordered_map<std::string, float>& probs);
 
-typedef std::unordered_map<std::string,std::unordered_map<std::string,float> > markov_t;
+typedef std::unordered_map<std::string, std::unordered_map<std::string, float> > chain_t;
+typedef struct markov_t {
+    chain_t chain;
+    int order;
+} markov_t;
 
 // Summarizes inputted text, sorts by frequency to output important words
 class Lexicon {
@@ -59,15 +65,16 @@ class Lexicon {
     std::string ignoredWords[MAX_IGNORE];
     markov_t predictor;
     int ignoreLen;
-    int MAX_WC = 3000;
+    int MAX_WC = 5000;
     std::vector<std::string> originalStream;
 
    public:
-    void loadFile(const std::string& fname);
+    void loadFile(const std::ifstream& file);
     void loadIgnore(int size, std::string A[]);
     void loadWords(const std::string& text);
 
     const BinTree<Word>& getTree();
+    const std::vector<std::string> & getStream();
 
     // Word is invalid if message is an empty string
     bool invalidWord(const Word& w) {
@@ -88,16 +95,21 @@ class Lexicon {
     }
     std::string longestWord();
     std::string shortestWord();
-    std::pair<std::string,std::string> mostSimilarPair();
+    std::pair<std::string, std::string> mostSimilarPair();
 
     void make_predictor(int o);
 
-    // Generates a sentence list from chain of some given size
-    std::vector<std::string> generate_sentences(int l);
+    std::vector<std::string> generate_text(int l);
 
     Lexicon() {
         textTree = BinTree<Word>();
         ignoreLen = 0;
+        predictor = markov_t();
+    }
+    Lexicon(const std::ifstream& file) {
+        textTree = BinTree<Word>();
+        ignoreLen = 0;  
+        loadFile(file);
         predictor = markov_t();
     }
     Lexicon(const std::string& text) {
@@ -106,9 +118,9 @@ class Lexicon {
         loadWords(text);
         predictor = markov_t();
     }
-    Lexicon(const std::string& text, int sz, std::string ign[]){
+    Lexicon(const std::string& text, int sz, std::string ign[]) {
         textTree = BinTree<Word>();
-        loadIgnore(sz,ign);
+        loadIgnore(sz, ign);
         loadWords(text);
         predictor = markov_t();
     }
