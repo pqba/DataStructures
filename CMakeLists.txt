@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 
-project(MyProject)
+project(DataStructures)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -O0")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -O1")
 
 # Add include directory
 include_directories(${CMAKE_SOURCE_DIR}/include)
@@ -24,9 +24,8 @@ set_target_properties(main_executable PROPERTIES
 )
 
 # Custom target for cleaning
-add_custom_target(clean_all
-    COMMAND ${CMAKE_COMMAND} -E remove_directory "${CMAKE_BINARY_DIR}/bin"
-    COMMAND ${CMAKE_COMMAND} -E remove_directory "${CMAKE_BINARY_DIR}/CMakeFiles"
-    COMMAND ${CMAKE_COMMAND} -E remove "${CMAKE_BINARY_DIR}/CMakeCache.txt"
-    COMMENT "Cleaning all built files and CMake-generated files"
+add_custom_target(clean_proj
+        COMMAND ${CMAKE_MAKE_PROGRAM} clean
+        COMMAND ${CMAKE_COMMAND} -E remove "${CMAKE_BINARY_DIR}/CMakeCache.txt"
+        COMMENT "Cleaning all built files and CMake-generated files"
 )

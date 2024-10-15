@@ -122,7 +122,7 @@ void LinkedList::add(Node* item, int index) {
     int count = 0;
     Node* curr = head;
 
-    // Move to right before inseration
+    // Move to right before insertion
     while (count != index - 1) {
         curr = curr->link;
         count++;
@@ -151,13 +151,13 @@ int LinkedList::find(Node* nd) {
     }
     Node* curr = head;
     int ind = 0;
-    while (curr->link != nullptr) {
+    do {
         if (curr->sameAs(nd)) {
             return ind;
         }
         curr = curr->link;
         ind++;
-    }
+    } while (curr->link != nullptr);
     return -1;
 }
 // Sets Node at specified index.

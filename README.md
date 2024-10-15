@@ -31,7 +31,7 @@ A project aimed at learning, implementing, and demonstrating various data struct
 #### Mac/Linux
 * Execute in debug mode using `$: cmake -DCMAKE_BUILD_TYPE=Debug .. && cmake --build .` in **build/** subdirectory
     * Use lldb or other debug tools as necessary with generated binary
-* Clean up binary and other generated files while in **build/** using `$: make clean_all`.
+* Clean up binary and other generated files while in **build/** using `$: make clean_proj`.
 
 #### Windows (VSCode)
 > This assumes that you have [Ninja](https://ninja-build.org/) in your CMake **bin/** folder and CMake Tools Installed
