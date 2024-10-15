@@ -11,3 +11,4 @@
 bin/
 # Ignore CMake build files
 build/
+cmake-build-debug/
