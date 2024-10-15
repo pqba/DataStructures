@@ -2,6 +2,7 @@
 #define LEXICON_H
 #define MAX_IGNORE 10
 #include <string>
+#include <utility>
 
 #include "../Structures/BinTree.h"
 
@@ -14,7 +15,7 @@ struct Word {
         freq = 0;
     }
     Word(std::string msg, int f) {
-        message = msg;
+        message = std::move(msg);
         freq = f;
     }
     const std::string& getMsg() const {
@@ -27,7 +28,7 @@ struct Word {
         freq = f;
     }
     void setMsg(std::string msg) {
-        message = msg;
+        message = std::move(msg);
     }
     bool operator==(const Word& other) const {
         return other.getFreq() == freq && other.getMsg() == message;
@@ -40,7 +41,7 @@ struct Word {
         return freq < other.freq || (freq == other.freq && message < other.message);
     }
 
-    const std::string print() const {
+    std::string print() const {
         return message + "-" + std::to_string(freq);
     }
 };
@@ -49,13 +50,13 @@ struct Word {
 int levenshteinDistance(const std::string& first, const std::string& second);
 Word* dllToArray(DoublyLinkedList<Word> list);
 std::deque<std::string> expand(const std::string& s, char delim);
-const std::string join(const std::deque<std::string>& vec, const char delim);
-const std::string weightedChoice(const std::unordered_map<std::string, float>& probs);
+std::string join(const std::deque<std::string>& vec, const char delim);
+std::string weightedChoice(const std::unordered_map<std::string, float>& probs);
 
 typedef std::unordered_map<std::string, std::unordered_map<std::string, float> > chain_t;
 typedef struct markov_t {
     chain_t chain;
-    int order;
+    int order{};
 } markov_t;
 
 // Summarizes inputted text, sorts by frequency to output important words
@@ -77,8 +78,9 @@ class Lexicon {
     const std::vector<std::string> & getStream();
 
     // Word is invalid if message is an empty string
-    bool invalidWord(const Word& w) {
-        return w.getMsg() == "";
+    static bool invalidWord(const Word& w) {
+        return
+        w.getMsg().empty();
     }
 
     BTNode<Word>* find(const std::string& w);

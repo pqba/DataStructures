@@ -22,9 +22,10 @@ struct Node {
 class LinkedList {
    private:
     Node *head;
-    void setHead(Node *Nd) {
-        Nd->link = head->link;
-        head = Nd;
+    int ll_length;
+    void setHead(Node *nd) {
+        nd->link = head->link;
+        head = nd;
     }
 
    public:

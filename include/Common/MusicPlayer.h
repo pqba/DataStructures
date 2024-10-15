@@ -2,6 +2,7 @@
 #define MUSICPLAYER_H
 
 #include <string>
+#include <utility>
 
 #include "../Structures/DoublyLinkedList.h"
 
@@ -12,10 +13,10 @@ struct Song {
     std::string albumCover;
     int length;
     Song(std::string t, std::string mus, std::string ac, int len) {
-        title = t;
-        musician = mus;
+        title = std::move(t);
+        musician = std::move(mus);
         length = len;
-        albumCover = ac;
+        albumCover = std::move(ac);
     }
     ~Song() {
         title = musician = albumCover = "N/A";

@@ -16,7 +16,6 @@ void test() {
 
     // runs in build/bin/ directory, so '..' for local paths. May only work on UNIX systems
     const std::ifstream lorem_file("../../test/Common/loremipsum.txt");
-  
     if(!lorem_file.fail()) {
         Lexicon dummytext = Lexicon(lorem_file);
         std::cout << dummytext.getStream().size() << "\n";

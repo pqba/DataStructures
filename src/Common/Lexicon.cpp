@@ -18,7 +18,7 @@ void Lexicon::loadFile(const std::ifstream& textFile) {
 }
 
 // Loads strings up to size  amount into ignore array
-void Lexicon::loadIgnore(int size, std::string A[]) {
+void Lexicon::loadIgnore(const int size, std::string A[]) {
     if (size <= 0) {
         ignoreLen = 0;
     } else {
@@ -123,12 +123,13 @@ DoublyLinkedList<Word>* Lexicon::topWords(int n) {
     DoublyLinkedList<Word>* lst = textTree.inOrderList();
     std::vector<Word> wordVec;
     int l_sz = lst->size();
-    for (int ind = 0; ind < l_sz; ind++) {
+    wordVec.reserve(l_sz);
+for (int ind = 0; ind < l_sz; ind++) {
         wordVec.push_back(lst->pop());
     }
     std::sort(wordVec.begin(), wordVec.end());
 
-    DoublyLinkedList<Word>* top_list = new DoublyLinkedList<Word>();
+    auto* top_list = new DoublyLinkedList<Word>();
     for (int i = 0; i < n; i++) {
         top_list->add(new DLLNode<Word>(wordVec.back()));
         wordVec.pop_back();
@@ -200,7 +201,7 @@ void Lexicon::make_predictor(int order) {
     // Generate |integer frequencies| based on states state using full original word stream
     for (int i = 0; i < (int)originalStream.size() - order; i++) {
         // get a comma delineated string of ORDER previous items and then the next token
-        std::string prev_state = "";
+        std::string prev_state;
         for (int j = i; j < i + order; j++) {
             prev_state += originalStream.at(j) + std::string(",");
         }
@@ -244,19 +245,20 @@ std::vector<std::string> Lexicon::generate_text(int length) {
     srand(time(NULL)); // non-deterministic random nums
 
     // Choose a random state in chain to begin with, using iterators
-    int chain_size = predictor.chain.size();
+    int chain_size = static_cast<int>(predictor.chain.size());
     int init_index = rand() % chain_size;
     auto it = predictor.chain.begin(); 
     std::advance(it, init_index);
     std::deque<std::string> state = expand(it->first,',');
     // Add initial words to sentence
     std::vector<std::string> sentence;
-    for(std::string s : state) {
+    sentence.reserve(state.size());
+for(std::string s : state) {
         sentence.push_back(s);
     }
 
 
-    int text_size = originalStream.size();
+    int text_size = (int)originalStream.size();
     for (int i = 0; i < length; i++) {
         std::string prediction;
         std::string prev = join(state,',');
@@ -301,7 +303,7 @@ void Lexicon::outputTopWords(int n, std::string delim) {
 
 // Returns array representation of doubly linked list and its length in pair object
 Word* dllToArray(DoublyLinkedList<Word> dll) {
-    int sz = dll.size();  // Must be vocabulary()
+    const int sz = dll.size();  // Must be vocabulary()
     Word* result = new Word[sz];
     for (int i = 0; i < sz; i++) {
         result[i] = dll.get(i)->data;
@@ -312,8 +314,8 @@ Word* dllToArray(DoublyLinkedList<Word> dll) {
 // Returns an integer representing the levensthein distance between the two strings
 int levenshteinDistance(const std::string& a, const std::string& b) {
     // initialize N x M array with 0's
-    int N = a.length();
-    int M = b.length();
+    int N = static_cast<int>(a.length());
+    int M = static_cast<int>(b.length());
     int dist[N + 1][M + 1];
 
     for (int i = 0; i <= N; i++) {
@@ -354,8 +356,8 @@ std::deque<std::string> expand(const std::string& s, char delim) {
 
 }
 // Joins together a vector of strings using a delim character
-const std::string join(const std::deque<std::string>& dq, const char delim) {
-    std::string combined = "";
+std::string join(const std::deque<std::string>& dq, const char delim) {
+    std::string combined;
     if(dq.size() == 0) {
         return std::string();
     }
@@ -366,7 +368,7 @@ const std::string join(const std::deque<std::string>& dq, const char delim) {
 }
 
 // Returns a string from a map[str->float] where the total values in the map sum to 1.0, indiciating probabilites
-const std::string weightedChoice(const std::unordered_map<std::string, float>& probs) {
+std::string weightedChoice(const std::unordered_map<std::string, float>& probs) {
     float lower_bound = 0;
     srand(time(NULL)); // non-deterministic random nums
     // number between [0,1) increments of 0.001

@@ -95,7 +95,7 @@ Data Stack::stack_peek() {
 }
 
 // Print out each data member of stack
-std::string Stack::stack_output() {
+std::string Stack::stack_output() const {
     std::ostringstream os;
     for (int i = 0; i < head; i++) {
         std::string value = (*(array + i)).print();
@@ -109,7 +109,7 @@ std::string Stack::stack_output() {
     return s;
 }
 // print out only the name of each member in stack
-std::string Stack::stack_name_output() {
+std::string Stack::stack_name_output()  {
     std::ostringstream os;
     for (int i = 0; i < head; i++) {
         std::string value = (*(array + i)).getName();

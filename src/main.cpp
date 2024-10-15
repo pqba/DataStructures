@@ -14,7 +14,7 @@
 
 
 void play_RPN() {
-    std::string userEquation = "";
+    std::string userEquation;
     std::cout << "Enter Reverse Polish Notation you want evaluated: ";
     getline(std::cin, userEquation);
     RPN eq(userEquation);
@@ -29,7 +29,7 @@ void test_EventHandler() {
 int main() {
     std::cout << "BEGIN MAIN()" << std::endl;
 
-    test_Lex();
+    test_LL();
 
     std::cout << "END MAIN()" << std::endl;
 

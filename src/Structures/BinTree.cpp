@@ -58,7 +58,7 @@ bool BinTree<T>::existsIter(BTNode<T>* nd,T key) {
         if(nd->val == key){
             return true;
         }
-        else if(nd->val < key){
+        if(nd->val < key){
             nd = nd->right;
         }
         else {

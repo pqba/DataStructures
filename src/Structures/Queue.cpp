@@ -142,7 +142,7 @@ void Queue<T>::checkIndex(std::string msg, int possibleInd) {
     }
 }
 template <class T>
-int Queue<T>::boundCapacity(int c) {
+int Queue<T>::boundCapacity(int c) const {
     if (c < 1) {
         c = 1;
     } else if (c > absolute_max) {

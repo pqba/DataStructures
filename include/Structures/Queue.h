@@ -29,6 +29,6 @@ class Queue {
 
     const std::string& print();
     void checkIndex(std::string, int);
-    int boundCapacity(int);
+    int boundCapacity(int) const;
 };
 #endif

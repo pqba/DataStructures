@@ -14,6 +14,7 @@ http://cslibrary.stanford.edu/103/LinkedListBasics.pdf
 
 LinkedList::LinkedList() {
     head = nullptr;
+    ll_length = 0;
 }
 
 // Removes the entire list
@@ -23,13 +24,7 @@ LinkedList::~LinkedList() {
 
 // Size of linkedlist
 int LinkedList::size() {
-    int length = 0;
-    Node* curr = head;
-    while (curr != nullptr) {
-        curr = curr->link;
-        length++;
-    }
-    return length;
+    return ll_length;
 }
 // Empties list, deletes all nodes.
 void LinkedList::clear() {
@@ -38,6 +33,7 @@ void LinkedList::clear() {
         head = head->link;
         delete current;
     }
+    ll_length = 0;
 }
 // Returns if the linkedlist is empty
 bool LinkedList::isEmpty() {
@@ -64,17 +60,21 @@ void LinkedList::remove(Node* item) {
                 Node* next = curr->link;
                 past->link = next;
                 delete curr;
+                ll_length--;
                 return;
             }
         }
     }
+    ll_length--;
 }
 // Removes the Node at a specified index
 void LinkedList::remove(int index) {
     checkIndex("Removal index out of bounds", index);
+
     int count = 0;
     Node* curr = head;
     Node* past = nullptr;
+
     while (count != index) {
         past = curr;
         curr = curr->link;
@@ -82,15 +82,13 @@ void LinkedList::remove(int index) {
     }
 
     if (index == 0) {
-        setHead(curr->link);
-        return;
-    }
-
-    Node* next = curr->link;
-    if (next == nullptr) {
-        past->link = nullptr;
+        head = curr->link;
+        delete curr;
+        ll_length--;
     } else {
-        past->link = next;
+        past->link = curr->link;
+        delete curr;
+        ll_length--;
     }
 }
 // Adds Node to the end of linked list
@@ -105,6 +103,7 @@ void LinkedList::add(Node* item) {
         }
         curr->link = item;
     }
+    ll_length++;
 }
 // Adds Node to index in list, throws error if index out of bounds
 void LinkedList::add(Node* item, int index) {
@@ -131,6 +130,7 @@ void LinkedList::add(Node* item, int index) {
     // curr -> item -> curr's link
     item->link = curr->link;
     curr->link = item;
+    ll_length++;
 }
 
 // Gets Node at specified index.
