@@ -29,7 +29,7 @@ void test_EventHandler() {
 int main() {
     std::cout << "BEGIN MAIN()" << std::endl;
 
-    test_LL();
+    test_BT();
 
     std::cout << "END MAIN()" << std::endl;
 

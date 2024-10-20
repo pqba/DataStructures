@@ -1,7 +1,6 @@
-#include "../../include/Structures/Data.h"
+#pragma once
 #include "../../include/Structures/DoublyLinkedList.h"
 #include <iostream>
-#include <random>
 
 namespace DLLTest
 {

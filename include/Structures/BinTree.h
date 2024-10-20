@@ -19,11 +19,11 @@ struct BTNode {
         val = data;
     }
     bool operator==(const BTNode& other) {
-        return this->val == other->val;
+        return this->val == other.val;
     }
     // Printing for nodes, infers types
     std::string print() const {
-        return print_impl(val);
+        return "BTNode(" + print_impl(val) + ")";
     }
 
    private:
@@ -69,7 +69,7 @@ class BinTree {
     int maxDepth();
     int maxSubtreeDepth(BTNode<T>*);
 
-    void paths(BTNode<T>*, const std::string);
+    void paths(BTNode<T>*, const std::string&);
     void mirror(BTNode<T>*);
     DoublyLinkedList<T>* inOrderList();
     DoublyLinkedList<T>* inOrderSubtreeList(BTNode<T>*);

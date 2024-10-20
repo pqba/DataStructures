@@ -76,7 +76,7 @@ void BinTree<T>::insert(T value) {
 // Inserts node into subtree of parent, while maintaining property.
 template <class T>
 BTNode<T>* BinTree<T>::insertSubtree(BTNode<T>* parent,T value) {
-    if(!parent){
+    if(!parent) {
         return new BTNode<T>(value);
     }
     if(value < parent->val){
@@ -167,7 +167,7 @@ void BinTree<T>::remove(T item) {
 }
 // Outputs all traversal paths of tree to console
 template <class T>
-void BinTree<T>::paths(BTNode<T>*node,const std::string s) {
+void BinTree<T>::paths(BTNode<T>*node, const std::string& s) {
     BTNode<T>* l = nullptr;
     BTNode<T>* r = nullptr;
     if(node) {
